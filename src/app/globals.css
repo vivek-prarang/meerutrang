@@ -1,26 +1,59 @@
 @import "tailwindcss";
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+/* FontAwesome font fix */
+.fa {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-family: 'Noto Sans Devanagari', sans-serif;
+  --btn-bg-coloer: #d93a1e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Global reset and base font */
+body {
+  background-color: var(--background) !important;
+  color: var(--foreground);
+  font-family: var(--font-family);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Home */
+.home-bg{ 
+ background-color:rgba(48,43,43,0.87);
+ background-blend-mode:overlay;
+}
+
+/* Responsive background size */
+@media (max-width: 767px) {
+  .home-bg {
+    background-size: contain;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.theme-btn{
+  background-color: var(--btn-bg-coloer) !important;
+  color: #fff !important;
+}
+
+
+.btn,
+a,
+button,li {
+  cursor: pointer !important;
+}
+footer{
+ background-color:rgba(0,0,0,0.44);
+ background-blend-mode:overlay;
+}
+
+.home-bg{
+ background-size:cover;
+ background-position-y:154%;
+ background-attachment:fixed;
+}
+.bg-weth{
+   justify-content:center;
 }
