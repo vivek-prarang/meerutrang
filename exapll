@@ -1,0 +1,7 @@
+
+NEXT_PUBLIC_PRARANG_API_BASE_URL=https://www.prarang.in/api/v1/
+
+NEXT_PUBLIC_API_URL_ANALYTICS=https://api.prarang.in/api/v1/
+NEXT_PUBLIC_API_AUTH_TOKEN=WEB-Route-Auth-Token-420
+NEXT_PUBLIC_API_AUTH_TYPE=WEB
+
