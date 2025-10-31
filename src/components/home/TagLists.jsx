@@ -19,7 +19,7 @@ export default function TagLists() {
       try {
         const response = await api.get("/tags", {
           client: "prarang",
-          params: { language: "hi" },
+          params: { language: "hi", location: 'c2' },
         });
 
         if (response.error) {
@@ -95,7 +95,7 @@ export default function TagLists() {
 
   return (
     <div className="w-full py-3 px-3 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 rounded-2xl shadow-sm border border-gray-100/50">
-    
+
         {/* <Heading title="हिन्दी शहर - प्रारंग ज्ञान के रंग" /> */}
 
       {/* Desktop Layout - Side by Side */}
@@ -157,7 +157,7 @@ export default function TagLists() {
 
           return (
             <div key={mainCat.id} className="space-y-3">
-           
+
               {relatedSubCats.map((category, index) => (
                 <button
                   key={category.id}

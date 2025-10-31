@@ -21,7 +21,7 @@ body {
 }
 
 /* Home */
-.home-bg{ 
+.home-bg{
  background-color:rgba(48,43,43,0.87);
  background-blend-mode:overlay;
 }
@@ -57,3 +57,12 @@ footer{
 .bg-weth{
    justify-content:center;
 }
+
+.post img {
+  width: 100% !important;
+}
+/* Image */
+.widget-right .widget-right__header img{
+ width:100px !important;
+}
+
