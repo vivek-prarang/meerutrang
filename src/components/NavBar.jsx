@@ -12,6 +12,9 @@ export default function NavBar() {
   const [tags, setTags] = useState({});
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [subCategoryHover, setSubCategoryHover] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalCategory, setModalCategory] = useState(null);
+  const [modalTags, setModalTags] = useState([]);
   const navRef = useRef(null);
   const router = useRouter();
 
@@ -23,28 +26,24 @@ export default function NavBar() {
         setSubCategoryHover(null);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close on Escape and on scroll to keep UI tidy
+  // Close on Escape and scroll
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") {
         setDropdownOpen(null);
         setSubCategoryHover(null);
         setIsOpen(false);
+        setModalOpen(false);
       }
     };
-
     const onScroll = () => {
       setDropdownOpen(null);
       setSubCategoryHover(null);
     };
-
     window.addEventListener("keydown", onKey);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
@@ -53,18 +52,16 @@ export default function NavBar() {
     };
   }, []);
 
-  // Close mobile menu when clicking on a link
+  // Responsive reset
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsOpen(false);
-      }
+      if (window.innerWidth >= 768) setIsOpen(false);
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Fetch categories
   const fetchCategories = async () => {
     try {
       const response = await api.get("/tags", {
@@ -73,7 +70,6 @@ export default function NavBar() {
       });
 
       if (response.data?.data) {
-        // Extract main categories
         const mainCats = Object.entries(response.data.data.categories.maincategories).map(
           ([key, value]) => ({
             id: key,
@@ -84,20 +80,16 @@ export default function NavBar() {
         );
         setMainCategories(mainCats);
 
-        // Extract sub categories
         const subCats = Object.entries(response.data.data.categories.subcategories).map(
           ([key, value]) => ({
             id: key,
             name: value.category_name,
             count: value.count,
             icon: value.icon,
-            // include parent information when available from API
             parentCategory: value.parent_category || value.parentCategory || null,
           })
         );
         setSubCategories(subCats);
-
-        // Extract tags
         setTags(response.data.data.tags || {});
       }
     } catch (error) {
@@ -119,14 +111,11 @@ export default function NavBar() {
   };
 
   const handleCategoryHover = (categoryId) => {
-    if (window.innerWidth >= 768) {
-      setDropdownOpen(categoryId);
-    }
+    if (window.innerWidth >= 768) setDropdownOpen(categoryId);
   };
 
   const handleCategoryLeave = () => {
     if (window.innerWidth >= 768) {
-      // Small delay to allow moving to subcategory dropdown
       setTimeout(() => {
         setDropdownOpen(null);
         setSubCategoryHover(null);
@@ -134,80 +123,36 @@ export default function NavBar() {
     }
   };
 
-  const handleCategoryKeyDown = (e, categoryId) => {
-    // keyboard accessibility for menu buttons
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      if (window.innerWidth < 768) {
-        setDropdownOpen(dropdownOpen === categoryId ? null : categoryId);
-      } else {
-        // open dropdown on desktop
-        setDropdownOpen(categoryId);
-        // focus first interactive element inside dropdown
-        setTimeout(() => {
-          const sel = document.querySelector(`[data-dropdown="${categoryId}"] a, [data-dropdown="${categoryId}"] button`);
-          if (sel) sel.focus();
-        }, 50);
-      }
-    }
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setDropdownOpen(categoryId);
-      setTimeout(() => {
-        const sel = document.querySelector(`[data-dropdown="${categoryId}"] a, [data-dropdown="${categoryId}"] button`);
-        if (sel) sel.focus();
-      }, 50);
-    }
-  };
-
   const handleSubCategoryHover = (subCategoryId) => {
-    if (window.innerWidth >= 768) {
-      setSubCategoryHover(subCategoryId);
-    }
+    if (window.innerWidth >= 768) setSubCategoryHover(subCategoryId);
   };
 
   const handleSubCategoryLeave = () => {
-    if (window.innerWidth >= 768) {
-      setSubCategoryHover(null);
-    }
+    if (window.innerWidth >= 768) setSubCategoryHover(null);
   };
 
-  // Get tags for a specific subcategory
-  const getTagsForSubCategory = (subCategoryId) => {
-    const tagKey = `tag_${subCategoryId}`;
-    return tags[tagKey] || [];
-  };
-
-  // Blocklist for tags that should not be shown in dropdowns.
-  // The user requested excluding these names/ids.
-  const blockedTagNames = [
-    "समय - सीमा",
-    "मानव और उनकी इंद्रियाँ",
-    "मानव और उनके आविष्कार",
-  ];
+  const blockedTagNames = ["समय - सीमा", "मानव और उनकी इंद्रियाँ", "मानव और उनके आविष्कार"];
   const blockedTagIds = [1099, 4199, 3285];
 
   const filterTags = (list) => {
     if (!Array.isArray(list)) return [];
     return list.filter((t) => {
-      if (!t) return false;
       const name = (t.tagName || "").trim();
       const id = Number(t.tagId);
-      if (blockedTagNames.includes(name)) return false;
-      if (!Number.isNaN(id) && blockedTagIds.includes(id)) return false;
-      return true;
+      return !blockedTagNames.includes(name) && !blockedTagIds.includes(id);
     });
   };
 
-  // Aggregate tags for a main category by collecting tags from all its subcategories.
-  // Deduplicate by tagId and return an array of tags (most recent order preserved by iteration).
+  const getTagsForSubCategory = (subCategoryId) => {
+    const tagKey = `tag_${subCategoryId}`;
+    return filterTags(tags[tagKey] || []);
+  };
+
   const getTagsForMainCategory = (mainCategoryId) => {
     const subs = getSubCategoriesForMainCategory(mainCategoryId) || [];
     const map = new Map();
     subs.forEach((sub) => {
       const list = getTagsForSubCategory(sub.id);
-      if (!Array.isArray(list)) return;
       list.forEach((t) => {
         if (!map.has(t.tagId)) map.set(t.tagId, t);
       });
@@ -215,26 +160,18 @@ export default function NavBar() {
     return Array.from(map.values());
   };
 
-  // Determine which subcategories belong to a main category.
-  // Prefer explicit parentCategory from API. If not available, fallback to index grouping of 3 per main category
-  // (matching the way TagLists groups subcategories: 3 per main category).
   const getSubCategoriesForMainCategory = (mainCategoryId) => {
     if (!Array.isArray(subCategories) || subCategories.length === 0) return [];
-
-    // If API provides parentCategory for subcategories, use that mapping
     const hasParentInfo = subCategories.some((s) => s.parentCategory);
     if (hasParentInfo) {
       return subCategories.filter((s) => String(s.parentCategory) === String(mainCategoryId));
     }
-
-    // Fallback: group by index using 3 subcategories per main category (1,2,3 => main 0; 4,5,6 => main 1, etc.)
     const mainIndex = mainCategories.findIndex((c) => c.id === mainCategoryId);
     const startIndex = mainIndex >= 0 ? mainIndex * 3 : 0;
     return subCategories.slice(startIndex, startIndex + 3);
   };
 
   const displayCategoryName = (category) => {
-    // map certain English ids to Hindi display names
     if (!category || !category.id) return category?.name || "";
     if (category.id === "culture" || /culture/i.test(category.id)) return "संस्कृति";
     if (category.id === "nature" || /nature/i.test(category.id)) return "प्रकृति";
@@ -256,11 +193,10 @@ export default function NavBar() {
           />
         </Link>
 
-        {/* Hamburger Menu Button for Mobile */}
+        {/* Hamburger Menu */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-gray-700 focus:outline-none p-2"
-          aria-label="Toggle menu"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -272,205 +208,112 @@ export default function NavBar() {
           </svg>
         </button>
 
-        {/* Navigation Links */}
+        {/* Navigation */}
         <ul
-          role="menubar"
-          className={`md:flex md:space-x-6 md:items-center absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 ${
-            isOpen
-              ? 'flex flex-col space-y-4 md:space-y-0'
-              : 'hidden'
+          className={`md:flex md:space-x-6 absolute md:static top-full left-0 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 ${
+            isOpen ? "flex flex-col space-y-4" : "hidden"
           }`}
         >
           <li>
             <Link
               href="/"
-              className="text-gray-700 hover:text-purple-600 transition block md:inline py-2 md:py-0"
+              className="text-gray-700 hover:text-purple-600 block"
               onClick={handleLinkClick}
             >
-             पोर्टल
+              पोर्टल
             </Link>
           </li>
           <li>
             <Link
-              href="/लेख"
-              className="text-gray-700 hover:text-purple-600 transition block md:inline py-2 md:py-0"
-              onClick={handleLinkClick}
+              href="javascript:void(0)"
+              className="text-gray-700 hover:text-purple-600 block"
+              onClick={() => window.location.href = "/लेख"}
             >
-              दैनिक लेख
+              दैनिक लेख  
             </Link>
           </li>
 
-          {mainCategories.map((category) => {
-            const relatedSubCats = getSubCategoriesForMainCategory(category.id);
-
-            return (
-              <li
-                key={category.id}
-                className="relative"
-                onMouseEnter={() => handleCategoryHover(category.id)}
-                onMouseLeave={handleCategoryLeave}
+          {mainCategories.map((category) => (
+            <li
+              key={category.id}
+              className="relative"
+              onMouseEnter={() => handleCategoryHover(category.id)}
+              onMouseLeave={handleCategoryLeave}
+            >
+              <button
+                className="text-gray-700 hover:text-purple-600 flex items-center gap-1"
+                onClick={() => {
+                  if (category.id === "culture" || /culture/i.test(category.id)) {
+                    const tags = getTagsForMainCategory(category.id).slice(0, 30);
+                    setModalTags(tags);
+                    setModalCategory(category);
+                    setModalOpen(true);
+                    return;
+                  }
+                  if (category.id === "nature" || /nature/i.test(category.id)) {
+                    const tags = getTagsForMainCategory(category.id).slice(0, 30);
+                    setModalTags(tags);
+                    setModalCategory(category);
+                    setModalOpen(true);
+                    return;
+                  }
+                  router.push(`/posts?main_category=${category.id}`);
+                }}
               >
-                <button
-                  role="menuitem"
-                  tabIndex={0}
-                  aria-haspopup="true"
-                  aria-expanded={dropdownOpen === category.id}
-                  onKeyDown={(e) => handleCategoryKeyDown(e, category.id)}
-                  onClick={() => {
-                    if (window.innerWidth < 768) {
-                      setDropdownOpen(dropdownOpen === category.id ? null : category.id);
-                    } else {
-                      // navigate to main category page on desktop
-                      router.push(`/posts?main_category=${category.id}`);
-                    }
-                  }}
-                  className="text-gray-700 hover:text-purple-600 transition flex items-center gap-1 w-full text-left py-2 md:py-0"
-                >
-                  {displayCategoryName(category) || category.name}
-                  <svg
-                    className={`w-4 h-4 transition-transform ${
-                      dropdownOpen === category.id ? 'rotate-180' : ''
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-
-                {/* Main Dropdown Menu with Subcategories */}
-                {dropdownOpen === category.id && (
-                  <div className="md:absolute md:top-full md:left-1/2 md:-translate-x-1/2 mt-2 md:mt-0 w-full md:w-[760px] bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                    <div className="p-4 flex flex-col md:flex-row gap-4">
-                      {/* Left: category header + subcategories */}
-                      <div className="md:w-1/2">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-3 border-b pb-2">
-                          {displayCategoryName(category) || category.name}
-                        </h3>
-                        <div className="grid grid-cols-1 gap-2">
-                          {relatedSubCats.map((subCat) => {
-                            const subCatTags = getTagsForSubCategory(subCat.id);
-
-                            return (
-                              <div
-                                key={subCat.id}
-                                className="relative group"
-                                onMouseEnter={() => handleSubCategoryHover(subCat.id)}
-                                onMouseLeave={handleSubCategoryLeave}
-                              >
-                                <Link
-                                  href={`/posts?category=${subCat.id}`}
-                                  className="flex items-center justify-between p-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition-colors border border-transparent hover:border-purple-200"
-                                  onClick={handleLinkClick}
-                                >
-                                  <div className="flex items-center space-x-3">
-                                    {subCat.icon && (
-                                      <img
-                                        src={subCat.icon}
-                                        alt={subCat.name}
-                                        className="w-6 h-6 object-contain"
-                                      />
-                                    )}
-                                    <span className="font-medium">{subCat.name}</span>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
-                                      {subCat.count}
-                                    </span>
-                                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                  </div>
-                                </Link>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      {/* Right: tags preview for hovered subcategory (on desktop) */}
-                      <div className="md:w-1/2">
-                        <div className="p-2 bg-gray-50 rounded">
-                          {subCategoryHover ? (
-                            (() => {
-                              const hoverTags = getTagsForSubCategory(subCategoryHover);
-                              if (!hoverTags || hoverTags.length === 0) return <div className="text-sm text-gray-500">No tags</div>;
-                              return (
-                                <div>
-                                  <h4 className="text-sm font-semibold text-gray-700 mb-2">टैग सूची</h4>
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 max-h-80 overflow-y-auto">
-                                    {hoverTags.slice(0, 30).map((tag) => (
-                                      <Link
-                                        key={tag.tagId}
-                                        href={`/posts?tag=${tag.tagId}`}
-                                        className="block p-2 text-sm text-gray-700 hover:bg-white hover:text-purple-600 rounded transition-colors"
-                                        onClick={handleLinkClick}
-                                      >
-                                        <div className="flex items-center space-x-2">
-                                          {tag.tagIcon && (
-                                            <img src={tag.tagIcon} alt={tag.tagName} className="w-4 h-4 object-contain" />
-                                          )}
-                                          <span className="truncate">{tag.tagName}</span>
-                                        </div>
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </div>
-                              );
-                            })()
-                          ) : (
-                            (() => {
-                              const aggregated = getTagsForMainCategory(category.id) || [];
-                              if (!aggregated || aggregated.length === 0) return <div className="text-sm text-gray-500">No tags</div>;
-                              return (
-                                <div>
-                                  <h4 className="text-sm font-semibold text-gray-700 mb-2">टैग सूची</h4>
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 max-h-80 overflow-y-auto">
-                                    {aggregated.slice(0, 30).map((tag) => (
-                                      <Link
-                                        key={tag.tagId}
-                                        href={`/posts?tag=${tag.tagId}`}
-                                        className="block p-2 text-sm text-gray-700 hover:bg-white hover:text-purple-600 rounded transition-colors"
-                                        onClick={handleLinkClick}
-                                      >
-                                        <div className="flex items-center space-x-2">
-                                          {tag.tagIcon && (
-                                            <img src={tag.tagIcon} alt={tag.tagName} className="w-4 h-4 object-contain" />
-                                          )}
-                                          <span className="truncate">{tag.tagName}</span>
-                                        </div>
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </div>
-                              );
-                            })()
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <Link
-                        href="/categories"
-                        className="block text-center p-3 mt-3 text-purple-600 hover:bg-purple-50 rounded-lg border border-purple-200 transition-colors"
-                        onClick={handleLinkClick}
-                      >
-                        View all categories →
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </li>
-            );
-          })}
+                {displayCategoryName(category) || category.name}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
+
+      {/* 🌸 Modal for Culture / Nature */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[999]"
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className="bg-white w-[90%] md:w-[800px] max-h-[80vh] rounded-lg shadow-lg p-6 overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold text-gray-800">
+                {displayCategoryName(modalCategory)}
+              </h2>
+              <button
+                className="text-gray-500 hover:text-gray-800 text-lg"
+                onClick={() => setModalOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+
+            {modalTags.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {modalTags.map((tag) => (
+                  <Link
+                    key={tag.tagId}
+                    href={`/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
+                    className="p-2 bg-gray-50 hover:bg-purple-50 rounded-lg flex items-center gap-2 border border-transparent hover:border-purple-200 transition"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = `/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`;
+                    }}
+                  >
+                    {tag.tagIcon && (
+                      <img src={tag.tagIcon} alt={tag.tagName} className="w-5 h-5 object-contain" />
+                    )}
+                    <span className="truncate text-sm text-gray-700">{tag.tagName}</span>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500 text-center py-6">कोई टैग उपलब्ध नहीं है</p>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

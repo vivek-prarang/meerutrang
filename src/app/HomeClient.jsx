@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <main className="min-h-screen w-full bg-cover bg-no-repeat bg-center home-bg" style={{ backgroundImage: `url(${portal?.image_base + portal?.header_image})` }}>
 
-        <Header />
+        <Header  data={portal} />
 
     <section className="w-full px-4 py-6">
   <div className="container mx-auto flex flex-col lg:flex-row gap-6">
@@ -59,10 +59,9 @@ export default function Home() {
         </div>
         <div className="bg-white p-1 pt-2 m-1 mt-3 ">
           <h3 className="text-xl font-bold text-center">मेरठ आंकड़े</h3>
-            <a href={`https://hindi.prarang.in/${portal?.slug}`} target="_blank">
+            <a href={`https://g2c.prarang.in/ai/${portal?.slug}?lang=hi`} target="_blank">
               <img src="https://www.prarang.in/assets/portal/images/matrix-24.jpg" alt="Login" className="w-full" />
             </a>
-
            </div>
       </div>
     </div>
