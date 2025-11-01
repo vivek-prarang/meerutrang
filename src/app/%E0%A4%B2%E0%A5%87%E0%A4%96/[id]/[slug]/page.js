@@ -34,7 +34,7 @@ export async function generateMetadata({ params }) {
     const generatedSlug =
       post.title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") ||
       "post";
-    const url = `https://meerut-range.com/लेख/${postId}/${generatedSlug}`;
+    const url = `https://meerutrang.in/लेख/${postId}/${generatedSlug}`;
 
     return {
       title,
