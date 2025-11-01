@@ -2,7 +2,7 @@
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL("https://meerut-range.com"),
+  metadataBase: new URL("https://meerutrang.in"),
   title: "Meerut Range - प्रारंग ज्ञान के रंग",
   description: "Meerut Range: Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights. Explore संस्कृति, प्रकृति, and more in Hindi.",
   keywords: "Meerut, Culture, Nature, Heritage, Hindi, Stories, India",
@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: "Meerut Range - प्रारंग ज्ञान के रंग",
     description: "Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights.",
-    url: "https://meerut-range.com",
+    url: "https://meerutrang.in",
     siteName: "Meerut Range",
     images: [
       {
