@@ -1,21 +1,26 @@
-# robots.txt for https://meerutrang.in
 
-# ✅ Allow Facebook and social media crawlers
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /*.json$
+
+# Allow Facebook's scraper
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: facebot
+# Allow other social media scrapers
+User-agent: Twitterbot
 Allow: /
 
-# ✅ Allow Google, Bing, and all other search engines
-User-agent: *
+User-agent: LinkedInBot
 Allow: /
 
-# ✅ Sitemap for SEO
-Sitemap: https://meerutrang.in/sitemap.xml
+User-agent: WhatsApp
+Allow: /
 
-# ✅ Notes
-# This file ensures Facebook, WhatsApp, and search engines can access
-# your Hindi article pages (e.g. /लेख/12345/slug) without a 403.
-# Do not disallow "/" unless you want to hide your site from all crawlers.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
 
