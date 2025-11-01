@@ -10,7 +10,7 @@ export const prarangApi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 1500000,
+  timeout: 8000,
 });
 
 export const analyticsApi = axios.create({
@@ -20,7 +20,7 @@ export const analyticsApi = axios.create({
     "api-auth-token": process.env.NEXT_PUBLIC_API_AUTH_TOKEN || "",
     "api-auth-type": process.env.NEXT_PUBLIC_API_AUTH_TYPE || "WEB",
   },
-  timeout: 1500000,
+  timeout: 8000,
 });
 
 // Generic wrappers that return { data, error }
