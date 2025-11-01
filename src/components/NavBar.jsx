@@ -227,9 +227,9 @@ export default function NavBar() {
             <Link
               href="javascript:void(0)"
               className="text-gray-700 hover:text-purple-600 block"
-              onClick={() => window.location.href = "/लेख"}
+              onClick={() => window.location.href = "/posts"}
             >
-              दैनिक लेख  
+              दैनिक लेख
             </Link>
           </li>
 
@@ -294,11 +294,11 @@ export default function NavBar() {
                 {modalTags.map((tag) => (
                   <Link
                     key={tag.tagId}
-                    href={`/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
+                    href={`/posts?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
                     className="p-2 bg-gray-50 hover:bg-purple-50 rounded-lg flex items-center gap-2 border border-transparent hover:border-purple-200 transition"
                     onClick={(e) => {
                       e.preventDefault();
-                      window.location.href = `/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`;
+                      window.location.href = `/posts?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`;
                     }}
                   >
                     {tag.tagIcon && (

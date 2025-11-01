@@ -337,7 +337,7 @@ export default function TagLists() {
             {selectedTags.map((tag) => (
               <a
                 key={tag.tagId}
-                href={`/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
+                href={`/posts?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block bg-white  rounded-full  hover:border-blue-400 transition-all duration-300  p-2 border"

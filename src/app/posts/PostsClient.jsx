@@ -245,7 +245,7 @@ function PostCard({ post }) {
 
       <div className="p-5 flex flex-col justify-between h-full" style={{ backgroundColor: post.color || "#ffffff" }}>
         <div>
-          <Link href={`/लेख/${post.id}/${post.title.replace(/\s+/g, "-")}`}>
+          <Link href={`/posts/${post.id}/${post.title.replace(/\s+/g, "-")}`}>
             <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 cursor-pointer hover:text-indigo-600 transition">
               {post.title}
             </h3>

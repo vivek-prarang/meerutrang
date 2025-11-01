@@ -78,7 +78,7 @@ export default function RecentPosts() {
                 />
               )}
               <div className="flex-1 min-w-0">
-                <Link href={`/लेख/${post.id}/${post.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'post'}`}>
+                <Link href={`/posts/${post.id}/${post.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'post'}`}>
                   <h4 className="text-sm font-medium text-gray-800 hover:text-blue-600 line-clamp-2 mb-1">
                     {post.title}
                   </h4>
