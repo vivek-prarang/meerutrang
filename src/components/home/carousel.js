@@ -47,13 +47,13 @@ export default function Carousel() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data, error } = await api.get("/daily-posts/list",  { client: "prarang",params: {'language': 'hi' } });
-        
+        const { data, error } = await api.get("/daily-posts/list",  { client: "prarang",params: {'language': 'hi', location: 'c2', per_page: 31 } });
+
         if (error) {
           console.error("Error fetching posts:", error);
           return;
         }
-        
+
         if (data?.success && data?.data?.posts) {
           const formattedPosts = data.data.posts.map(formatPost);
           setPosts(formattedPosts);
@@ -62,7 +62,7 @@ export default function Carousel() {
         console.error("Error fetching posts:", err);
       }
     };
-    
+
     fetchPosts();
   }, []);
 
@@ -70,10 +70,10 @@ export default function Carousel() {
   useEffect(() => {
     const mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`);
     const handleResize = () => setPostsPerView(mediaQuery.matches ? 2 : 3);
-    
+
     handleResize();
     mediaQuery.addEventListener?.("change", handleResize);
-    
+
     return () => mediaQuery.removeEventListener?.("change", handleResize);
   }, []);
 
@@ -87,13 +87,13 @@ export default function Carousel() {
   // Navigation handlers
   const handleNext = useCallback(() => {
     if (isTransitioning || posts.length === 0) return;
-    
+
     setIsTransitioning(true);
     setCurrentIndex((prev) => prev + 1);
-    
+
     setTimeout(() => {
       setIsTransitioning(false);
-      
+
       // Jump back to real first slide if we're at the cloned end
       if (currentIndex + 1 >= posts.length + postsPerView) {
         setIsTransitioning(true);
@@ -105,13 +105,13 @@ export default function Carousel() {
 
   const handlePrev = useCallback(() => {
     if (isTransitioning || posts.length === 0) return;
-    
+
     setIsTransitioning(true);
     setCurrentIndex((prev) => prev - 1);
-    
+
     setTimeout(() => {
       setIsTransitioning(false);
-      
+
       // Jump to real last slide if we're at the cloned start
       if (currentIndex - 1 < postsPerView) {
         setIsTransitioning(true);
@@ -129,7 +129,7 @@ export default function Carousel() {
   // Autoplay
   useEffect(() => {
     if (isHovered || isTransitioning || posts.length === 0) return;
-    
+
     const interval = setInterval(handleNext, AUTOPLAY_DELAY);
     return () => clearInterval(interval);
   }, [isHovered, isTransitioning, posts.length, handleNext]);
@@ -200,7 +200,7 @@ export default function Carousel() {
         ariaLabel="post details"
         header={modalPost ? (
           <div className="flex  justify-between">
-            <div className="">             
+            <div className="">
               <div className="text-lg font-semibold">{modalPost.title}</div>
               {modalPost.createdDate && <div className="text-xs text-gray-500">{modalPost.createdDate}</div>}
                <div className="text-sm text-black text-start">{modalPost.category}</div>
@@ -209,7 +209,7 @@ export default function Carousel() {
         ) : null}
         footer={modalPost ? (
           <div className="flex gap-2 justify-end">
-          
+
             <button onClick={() => setIsPostModalOpen(false)} className="px-3 py-1 border rounded text-sm">Close</button>
           </div>
         ) : null}
@@ -233,9 +233,9 @@ export default function Carousel() {
                           href='/posts'
                           className="bg-gradient-to-r from-blue-700 to-blue-400 text-white font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 text-center py-2 px-3 text-sm rounded-lg"
                         >
-                         सभी पोस्ट देखें 
+                         सभी पोस्ट देखें
                         </a>
-                         
+
                         <button
                           onClick={() => setIsSubscriptionModalOpen(true)}
                           className="bg-gradient-to-r from-blue-400 to-blue-700 text-white font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 py-2 px-3 text-sm rounded-lg"
@@ -341,6 +341,6 @@ function CarouselControls({ posts, activeDotIndex, isTransitioning, onPrev, onNe
         </button2>
       </div>
     </div>
-    
+
   );
 }
