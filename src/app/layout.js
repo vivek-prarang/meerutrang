@@ -3,23 +3,23 @@ import "./globals.css";
 
 export const metadata = {
   metadataBase: new URL("https://meerutrang.in"),
-  title: "Meerut Range - प्रारंग ज्ञान के रंग",
-  description: "Meerut Range: Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights. Explore संस्कृति, प्रकृति, and more in Hindi.",
+  title: "Meerut Rang - प्रारंग ज्ञान के रंग",
+  description: "Meerut Rang: Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights. Explore संस्कृति, प्रकृति, and more in Hindi.",
   keywords: "Meerut, Culture, Nature, Heritage, Hindi, Stories, India",
   authors: [{ name: "Prarang" }],
   // viewport: "width=device-width, initial-scale=1",
   charset: "utf-8",
   openGraph: {
-    title: "Meerut Range - प्रारंग ज्ञान के रंग",
+    title: "Meerut Rang - प्रारंग ज्ञान के रंग",
     description: "Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights.",
     url: "https://meerutrang.in",
-    siteName: "Meerut Range",
+    siteName: "Meerut Rang",
     images: [
       {
         url: "https://prarang.s3.amazonaws.com/posts-2017-24/logo2.png",
         width: 800,
         height: 600,
-        alt: "Meerut Range Logo",
+        alt: "Meerut Rang Logo",
       },
     ],
     locale: "hi_IN",
@@ -27,7 +27,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Meerut Range - प्रारंग ज्ञान के रंग",
+    title: "Meerut Rang - प्रारंग ज्ञान के रंग",
     description: "Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights.",
     images: ["https://prarang.s3.amazonaws.com/posts-2017-24/logo2.png"],
   },

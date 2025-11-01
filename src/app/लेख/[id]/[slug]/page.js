@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   if (!postId) {
     console.error("❌ No postId found in params");
     return {
-      title: "Post Not Found | Meerut Range",
+      title: "Post Not Found | Meerut Rang",
       description: "The requested post could not be found.",
     };
   }
@@ -20,13 +20,13 @@ export async function generateMetadata({ params }) {
 
     if (error || !data?.success) {
       return {
-        title: "Error | Meerut Range",
+        title: "Error | Meerut Rang",
         description: "There was an error loading the post.",
       };
     }
 
     const post = data.data;
-    const title = `${post.title} | Meerut Range`;
+    const title = `${post.title} | Meerut Rang`;
     const description = post.short_description || post.title;
     const imageUrl =
       post.image_url ||
@@ -73,8 +73,8 @@ export async function generateMetadata({ params }) {
   } catch (err) {
     console.error("Metadata fetch error:", err);
     return {
-      title: "Post | Meerut Range",
-      description: "Read the latest post on Meerut Range.",
+      title: "Post | Meerut Rang",
+      description: "Read the latest post on Meerut Rang.",
     };
   }
 }
