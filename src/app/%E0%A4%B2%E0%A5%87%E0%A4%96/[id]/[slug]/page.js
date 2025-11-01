@@ -38,23 +38,37 @@ export async function generateMetadata({ params }) {
 
     return {
       title,
+    description,
+    metadataBase: new URL("https://meerutrang.in"),
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
       description,
-      openGraph: {
-        title,
-        description,
-        url,
-        images: [{ url: imageUrl, alt: post.title }],
-        type: "article",
-        publishedTime: post.createDate,
-        authors: ["Prarang"],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description,
-        images: [imageUrl],
-      },
-    };
+      url,
+      siteName: "Meerut Rang",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      locale: "hi_IN",
+      type: "article",
+      publishedTime: post.createDate,
+      authors: ["Prarang"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+      creator: "@prarang_in",
+    },
+  };
   } catch (err) {
     console.error("Metadata fetch error:", err);
     return {
