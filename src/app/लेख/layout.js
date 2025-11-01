@@ -4,23 +4,23 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
-  title: "Posts | Meerut Range - प्रारंग ज्ञान के रंग",
-  description: "Explore posts on Meerut Range. Discover stories about culture, nature, and heritage of Meerut in Hindi.",
+  title: "Posts | Meerut Rang - प्रारंग ज्ञान के रंग",
+  description: "Explore posts on Meerut Rang. Discover stories about culture, nature, and heritage of Meerut in Hindi.",
   openGraph: {
-    title: "Posts | Meerut Range",
-    description: "Explore posts on Meerut Range. Discover stories about culture, nature, and heritage.",
+    title: "Posts | Meerut Rang",
+    description: "Explore posts on Meerut Rang. Discover stories about culture, nature, and heritage.",
     url: "https://meerutrang.in/posts",
     images: [
       {
         url: "https://prarang.s3.amazonaws.com/posts-2017-24/logo2.png",
-        alt: "Meerut Range Posts",
+        alt: "Meerut Rang Posts",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Posts | Meerut Range",
-    description: "Explore posts on Meerut Range. Discover stories about culture, nature, and heritage.",
+    title: "Posts | Meerut Rang",
+    description: "Explore posts on Meerut Rang. Discover stories about culture, nature, and heritage.",
     images: ["https://prarang.s3.amazonaws.com/posts-2017-24/logo2.png"],
   },
 };
