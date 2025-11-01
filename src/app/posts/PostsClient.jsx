@@ -238,7 +238,7 @@ function PostCard({ post }) {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-        <div className="absolute bottom-2 left-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
+        <div className="absolute bottom-2 left-2 text-black text-xs bg-white px-2 py-1 rounded">
           {post.createDate}
         </div>
       </div>

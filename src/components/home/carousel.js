@@ -47,7 +47,7 @@ export default function Carousel() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data, error } = await api.get("/daily-posts/list",  { client: "prarang",params: {'language': 'hi', location: 'c2', per_page: 31 } });
+        const { data, error } = await api.get("/daily-posts/list",  { client: "prarang",params: {'language': 'hi', location: 'c2', per_page: 10 } });
 
         if (error) {
           console.error("Error fetching posts:", error);

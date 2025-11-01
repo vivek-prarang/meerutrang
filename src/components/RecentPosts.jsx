@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import api from "../lib/api";
 
+
 export default function RecentPosts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchRecentPosts = async () => {
       try {
         const { data, error } = await api.get("/daily-posts/list", {
           client: "prarang",
-          params: { language: 'hi', per_page: 10, page: 1 ,location: 'c2' },
+          params: { language: 'hi', per_page: 10, page: 1, location: 'c2' },
         });
 
         if (error) throw new Error(error);
@@ -64,7 +64,7 @@ export default function RecentPosts() {
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
+    <div className="bg-white p-4 rounded-lg shadow sticky top-20">
       <h3 className="text-lg font-bold mb-4">हाल की पोस्ट</h3>
       <div className="space-y-3">
         {posts.map((post) => (
@@ -78,7 +78,7 @@ export default function RecentPosts() {
                 />
               )}
               <div className="flex-1 min-w-0">
-                <Link href={`/posts/${post.id}/${post.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'post'}`}>
+                <Link href={`/posts/${post.id}/${post.title?.replace(/\s+/g, '-').toLowerCase() || post.title}`} className="hover:underline">
                   <h4 className="text-sm font-medium text-gray-800 hover:text-blue-600 line-clamp-2 mb-1">
                     {post.title}
                   </h4>

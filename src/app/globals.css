@@ -66,3 +66,8 @@ footer{
  width:100px !important;
 }
 
+/* Iframe */
+.overflow-y-auto .w-full iframe{
+ width:100% !important;
+}
+

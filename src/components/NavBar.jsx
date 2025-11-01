@@ -210,9 +210,8 @@ export default function NavBar() {
 
         {/* Navigation */}
         <ul
-          className={`md:flex md:space-x-6 absolute md:static top-full left-0 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 ${
-            isOpen ? "flex flex-col space-y-4" : "hidden"
-          }`}
+          className={`md:flex md:space-x-6 absolute md:static top-full left-0 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 ${isOpen ? "flex flex-col space-y-4" : "hidden"
+            }`}
         >
           <li>
             <Link

@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
     const url = `https://meerutrang.in/posts/${postId}/${generatedSlug}`;
 
     return {
-      title,
+    title,
     description,
     metadataBase: new URL("https://meerutrang.in"),
     alternates: {
