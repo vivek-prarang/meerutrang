@@ -7,7 +7,7 @@ export const metadata = {
   description: "Meerut Range: Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights. Explore संस्कृति, प्रकृति, and more in Hindi.",
   keywords: "Meerut, Culture, Nature, Heritage, Hindi, Stories, India",
   authors: [{ name: "Prarang" }],
-  viewport: "width=device-width, initial-scale=1",
+  // viewport: "width=device-width, initial-scale=1",
   charset: "utf-8",
   openGraph: {
     title: "Meerut Range - प्रारंग ज्ञान के रंग",
