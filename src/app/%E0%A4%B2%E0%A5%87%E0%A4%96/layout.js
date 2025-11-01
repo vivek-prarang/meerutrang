@@ -1,6 +1,7 @@
 import Link from "next/link";
 import "../globals.css";
 import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
 export const metadata = {
   title: "Posts | Meerut Range - प्रारंग ज्ञान के रंग",
@@ -34,10 +35,7 @@ export default function RootLayout({ children }) {
 
         <main className="flex-1">{children}</main>
 
-        {/* 🔹 Footer */}
-        <footer className="bg-white shadow-inner py-4 text-center text-gray-500 text-sm">
-          © {new Date().getFullYear()} Create Next App. All rights reserved.
-        </footer>
+        <Footer />
       </body>
     </html>
   );

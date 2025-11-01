@@ -8,7 +8,7 @@ export default function Nav() {
           </a>
         </li>
         <li>
-          <a className="text-white hover:text-gray-200 font-semibold" href="/posts">
+          <a className="text-white hover:text-gray-200 font-semibold" href="/%E0%A4%B2%E0%A5%87%E0%A4%96">
             See All Posts / सभी रंग देखे
           </a>
         </li>

@@ -207,12 +207,10 @@ export default function NavBar() {
             />
           </svg>
         </button>
-
         {/* Navigation */}
         <ul
-          className={`md:flex md:space-x-6 absolute md:static top-full left-0 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 ${
-            isOpen ? "flex flex-col space-y-4" : "hidden"
-          }`}
+          className={`md:flex md:space-x-6 absolute md:static top-full left-0 w-full md:w-auto bg-white shadow-md md:shadow-none p-4 md:p-0 transition-all duration-300 ${isOpen ? "flex flex-col space-y-4" : "hidden"
+            }`}
         >
           <li>
             <Link
@@ -227,7 +225,7 @@ export default function NavBar() {
             <Link
               href="javascript:void(0)"
               className="text-gray-700 hover:text-purple-600 block"
-              onClick={() => window.location.href = "/posts"}
+              onClick={() => window.location.href = "/%E0%A4%B2%E0%A5%87%E0%A4%96"}
             >
               दैनिक लेख
             </Link>
@@ -257,7 +255,7 @@ export default function NavBar() {
                     setModalOpen(true);
                     return;
                   }
-                  router.push(`/posts?main_category=${category.id}`);
+                  router.push(`/लेख?main_category=${category.id}`);
                 }}
               >
                 {displayCategoryName(category) || category.name}
@@ -294,11 +292,11 @@ export default function NavBar() {
                 {modalTags.map((tag) => (
                   <Link
                     key={tag.tagId}
-                    href={`/posts?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
+                    href={`/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
                     className="p-2 bg-gray-50 hover:bg-purple-50 rounded-lg flex items-center gap-2 border border-transparent hover:border-purple-200 transition"
                     onClick={(e) => {
                       e.preventDefault();
-                      window.location.href = `/posts?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`;
+                      window.location.href = `/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`;
                     }}
                   >
                     {tag.tagIcon && (

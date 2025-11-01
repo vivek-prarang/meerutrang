@@ -238,14 +238,14 @@ function PostCard({ post }) {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-        <div className="absolute bottom-2 left-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
+        <div className="absolute bottom-2 left-2 text-black text-xs bg-white px-2 py-1 rounded">
           {post.createDate}
         </div>
       </div>
 
       <div className="p-5 flex flex-col justify-between h-full" style={{ backgroundColor: post.color || "#ffffff" }}>
         <div>
-          <Link href={`/posts/${post.id}/${post.title.replace(/\s+/g, "-")}`}>
+          <Link href={`/लेख/${post.id}/${post.title.replace(/\s+/g, "-")}`}>
             <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 cursor-pointer hover:text-indigo-600 transition">
               {post.title}
             </h3>

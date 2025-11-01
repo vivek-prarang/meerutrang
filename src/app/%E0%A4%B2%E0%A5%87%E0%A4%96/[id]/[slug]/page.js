@@ -35,10 +35,10 @@ export async function generateMetadata({ params }) {
       ?.replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "")
       .trim() || post.title;
-    const url = `https://meerutrang.in/posts/${postId}/${generatedSlug}`;
+    const url = `https://meerutrang.in/लेख/${postId}/${generatedSlug}`;
 
     return {
-      title,
+    title,
     description,
     metadataBase: new URL("https://meerutrang.in"),
     alternates: {
