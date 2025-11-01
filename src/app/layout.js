@@ -31,17 +31,17 @@ export const metadata = {
     description: "Discover the rich culture, nature, and heritage of Meerut through engaging stories and insights.",
     images: ["https://prarang.s3.amazonaws.com/posts-2017-24/logo2.png"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  // robots: {
+  //   index: true,
+  //   follow: true,
+  //   googleBot: {
+  //     index: true,
+  //     follow: true,
+  //     "max-video-preview": -1,
+  //     "max-image-preview": "large",
+  //     "max-snippet": -1,
+  //   },
+  // },
 };
 
 export default function RootLayout({ children }) {
