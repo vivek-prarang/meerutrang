@@ -6,7 +6,7 @@ export const metadata = {
   openGraph: {
     title: "Meerut Rang - Home",
     description: "Explore the culture, nature, and stories of Meerut in Hindi.",
-    url: "https://meerut-Rang.com",
+    url: "https://meerut-range.com",
     images: [
       {
         url: "https://prarang.s3.amazonaws.com/posts-2017-24/logo2.png",
