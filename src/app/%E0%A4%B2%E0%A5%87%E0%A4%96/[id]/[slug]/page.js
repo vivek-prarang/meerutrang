@@ -31,9 +31,10 @@ export async function generateMetadata({ params }) {
     const imageUrl =
       post.image_url ||
       "https://prarang.s3.amazonaws.com/posts-2017-24/logo2.png";
-    const generatedSlug =
-      post.title?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") ||
-      "post";
+    const generatedSlug = post.title
+      ?.replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .trim() || post.title;
     const url = `https://meerutrang.in/लेख/${postId}/${generatedSlug}`;
 
     return {
