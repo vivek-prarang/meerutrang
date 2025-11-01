@@ -96,7 +96,7 @@ export default function TagLists() {
   return (
     <div className="w-full py-3 px-3 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 rounded-2xl shadow-sm border border-gray-100/50">
 
-        {/* <Heading title="हिन्दी शहर - प्रारंग ज्ञान के रंग" /> */}
+      {/* <Heading title="हिन्दी शहर - प्रारंग ज्ञान के रंग" /> */}
 
       {/* Desktop Layout - Side by Side */}
       <div className="hidden md:block">
@@ -115,29 +115,29 @@ export default function TagLists() {
                 </div>
               </div>
               {/* Colored Boxes - Placeholder for visual design */}
-             <div className="flex h-12">
-    {category.id === 'culture' ? (
-      <>
-       <div className="flex-1"></div>
-        <div className="flex-1"></div>
-        <div className="flex-1 bg-red-500"></div>
-        <div className="flex-1 bg-[#ffff19]"></div>
-        <div className="flex-1 bg-[#0000fe]"></div>
-        <div className="flex-1"></div>
-        <div className="flex-1"></div>
-      </>
-    ) : (
-      <>
-        <div className="flex-1"></div>
-        <div className="flex-1"></div>
-        <div className="flex-1 bg-[#faff98]"></div>
-        <div className="flex-1 bg-[#c8ff01]"></div>
-        <div className="flex-1 bg-[#339933]"></div>
-          <div className="flex-1"></div>
-        <div className="flex-1"></div>
-      </>
-    )}
-  </div>
+              <div className="flex h-12">
+                {category.id === 'culture' ? (
+                  <>
+                    <div className="flex-1"></div>
+                    <div className="flex-1"></div>
+                    <div className="flex-1 bg-red-500"></div>
+                    <div className="flex-1 bg-[#ffff19]"></div>
+                    <div className="flex-1 bg-[#0000fe]"></div>
+                    <div className="flex-1"></div>
+                    <div className="flex-1"></div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex-1"></div>
+                    <div className="flex-1"></div>
+                    <div className="flex-1 bg-[#faff98]"></div>
+                    <div className="flex-1 bg-[#c8ff01]"></div>
+                    <div className="flex-1 bg-[#339933]"></div>
+                    <div className="flex-1"></div>
+                    <div className="flex-1"></div>
+                  </>
+                )}
+              </div>
 
             </div>
           ))}
@@ -145,80 +145,80 @@ export default function TagLists() {
 
         {/* Sub Categories Section - 2 Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {mainCategories.map((mainCat, mainIndex) => {
-          // Calculate which subcategories belong to this main category
-          // Assuming first 3 subcategories for first main cat, next 3 for second main cat
-          const startIndex = mainIndex * 3;
-          const relatedSubCats = subCategories.slice(startIndex, startIndex + 3);
+          {mainCategories.map((mainCat, mainIndex) => {
+            // Calculate which subcategories belong to this main category
+            // Assuming first 3 subcategories for first main cat, next 3 for second main cat
+            const startIndex = mainIndex * 3;
+            const relatedSubCats = subCategories.slice(startIndex, startIndex + 3);
 
-          console.log(`Main Category: ${mainCat.name}, Related Subcats:`, relatedSubCats);
+            console.log(`Main Category: ${mainCat.name}, Related Subcats:`, relatedSubCats);
 
-          if (relatedSubCats.length === 0) return null;
+            if (relatedSubCats.length === 0) return null;
 
-          return (
-            <div key={mainCat.id} className="space-y-3">
+            return (
+              <div key={mainCat.id} className="space-y-3">
 
-              {relatedSubCats.map((category, index) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleSubCategoryClick(category.id, category.name)}
-                  className="w-full group bg-white border-2 border-gray-200 rounded-xl p-1 hover:border-blue-400 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 text-left focus:outline-none focus:ring-2 focus:ring-blue-300"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    {/* Left Side - Icon */}
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-300">
-                      {/* Different icons for each category */}
-                      {index === 0 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                        </svg>
-                      )}
-                      {index === 1 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
-                        </svg>
-                      )}
-                      {index === 2 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
-                        </svg>
-                      )}
-                      {index === 3 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                      )}
-                      {index === 4 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
-                        </svg>
-                      )}
-                      {index === 5 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clipRule="evenodd" />
-                        </svg>
-                      )}
-                    </div>
+                {relatedSubCats.map((category, index) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleSubCategoryClick(category.id, category.name)}
+                    className="w-full group bg-white border-2 border-gray-200 rounded-xl p-1 hover:border-blue-400 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 text-left focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      {/* Left Side - Icon */}
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-300">
+                        {/* Different icons for each category */}
+                        {index === 0 && (
+                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                        {index === 1 && (
+                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+                          </svg>
+                        )}
+                        {index === 2 && (
+                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+                          </svg>
+                        )}
+                        {index === 3 && (
+                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                        {index === 4 && (
+                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
+                          </svg>
+                        )}
+                        {index === 5 && (
+                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
 
-                    {/* Center - Category Name */}
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors text-base">
-                        {category.name}
-                      </h5>
-                    </div>
+                      {/* Center - Category Name */}
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors text-base">
+                          {category.name}
+                        </h5>
+                      </div>
 
-                    {/* Right Side - Count Badge */}
-                    <div className="flex-shrink-0">
-                      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold px-4 py-2 rounded-lg min-w-[50px] text-center shadow-sm group-hover:shadow-md transition-all duration-300">
-                        {category.count}
+                      {/* Right Side - Count Badge */}
+                      <div className="flex-shrink-0">
+                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold px-4 py-2 rounded-lg min-w-[50px] text-center shadow-sm group-hover:shadow-md transition-all duration-300">
+                          {category.count}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          );
-        })}
+                  </button>
+                ))}
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -337,7 +337,7 @@ export default function TagLists() {
             {selectedTags.map((tag) => (
               <a
                 key={tag.tagId}
-                href={`/posts?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
+                href={`/लेख?tagid=${tag.tagId}&tagname=${encodeURIComponent(tag.tagName)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block bg-white  rounded-full  hover:border-blue-400 transition-all duration-300  p-2 border"
