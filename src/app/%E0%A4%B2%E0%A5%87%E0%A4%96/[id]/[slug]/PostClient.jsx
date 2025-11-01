@@ -139,26 +139,28 @@ export default function PostDetailPage() {
                 </span>
                 <span>{post.createDate}</span>
               </div>
-              <div className="mb-3">
-                <table className="w-full border-collapse border border-gray-200 text-gray-600 text-sm">
-                  <tr>
-                    <th colSpan="4" className="border-b border-gray-200 bg-gray-50 text-center">पोस्ट दर्शकता</th>
-                  </tr>
-                  <tr>
-                    <th className="text-center">शहर सदस्य (FB+ऐप्प)</th>
-                    <th className="text-center">वेबसाइट (Direct+Google)</th>
-                    <th className="text-center">मेसेजिंग सदस्य</th>
-                    <th className="text-center">कुल</th>
-                  </tr>
-                  <tr>
-                    <td className="text-center">{post.analytics.city_subscrivers}</td>
-                    <td className="text-center">{post.analytics.website_views}</td>
-                    <td className="text-center">{post.analytics.whatsapp_views + post.analytics.instagram_views}</td>
-                    <td className="text-center">{post.analytics.total_views}</td>
-                  </tr>
+              {post.analytics.total_views > 0 && (
+                <div className="mb-3">
+                  <table className="w-full border-collapse border border-gray-200 text-gray-600 text-sm">
+                    <tr>
+                      <th colSpan="4" className="border-b border-gray-200 bg-gray-50 text-center">पोस्ट दर्शकता</th>
+                    </tr>
+                    <tr>
+                      <th className="text-center">शहर सदस्य (FB+ऐप्प)</th>
+                      <th className="text-center">वेबसाइट (Direct+Google)</th>
+                      <th className="text-center">मेसेजिंग सदस्य</th>
+                      <th className="text-center">कुल</th>
+                    </tr>
+                    <tr>
+                      <td className="text-center">{post.analytics.city_subscrivers}</td>
+                      <td className="text-center">{post.analytics.website_views}</td>
+                      <td className="text-center">{post.analytics.whatsapp_views + post.analytics.instagram_views}</td>
+                      <td className="text-center">{post.analytics.total_views}</td>
+                    </tr>
 
-                </table>
-              </div>
+                  </table>
+                </div>
+              )}
               {post.image_url && (
                 <div className="relative overflow-hidden rounded-2xl border border-gray-200 shadow-sm mb-8">
                   <img
