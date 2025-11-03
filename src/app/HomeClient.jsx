@@ -188,7 +188,7 @@ export default function Home() {
             </div>
             <Subscriber />
             <div className=" p-1 m-1 mt-3 ">
-              <a href={`https://hindi.prarang.in/${portal?.slug}`} target="_blank">
+              <a href={`https://prarang.in/yp/meerut`} target="_blank">
                 <img src="https://www.prarang.in/assets/images/yellowpages.jpg" alt="Login" className="h-[420px] w-full" />
               </a>
 

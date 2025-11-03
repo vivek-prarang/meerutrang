@@ -179,21 +179,32 @@ export default function SubscriptionModal({ isOpen, onClose }) {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // API call to subscribe endpoint
+      const response = await api.post("subscribe", {
+        name: formData.name,
+        mobile: formData.mobile,
+        city: formData.city,
+      });
 
-    console.log("Form submitted:", formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      console.log("Subscription successful:", response.data);
+      setIsSubmitted(true);
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", mobile: "", city: "" });
-      setSearchTerm("");
-      setIsDropdownOpen(false);
-      onClose();
-    }, 3000);
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ name: "", mobile: "", city: "" });
+        setSearchTerm("");
+        setIsDropdownOpen(false);
+        onClose();
+      }, 3000);
+    } catch (error) {
+      console.error("Subscription error:", error);
+      // Show error message to user
+      alert("सब्सक्रिप्शन में त्रुटि हुई। कृपया पुनः प्रयास करें।");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
