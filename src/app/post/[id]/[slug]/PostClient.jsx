@@ -186,7 +186,7 @@ export default function PostDetailPage() {
               <div className="shadow mb-4 rounded"><Subscriber /></div>
               <div className="">
                 <ShareModal
-                  url={`https://मेरठरंग.भारत/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
+                  url={`https://meerutrang.in/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
                   title={post.title}
                   description=""
                 />
