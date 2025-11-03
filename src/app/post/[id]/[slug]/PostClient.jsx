@@ -88,7 +88,7 @@ export default function PostDetailPage() {
         {/* 🔹 Back Button */}
         <div className="mb-10">
           <Link
-            href="/posts"
+            href="/%E0%A4%B2%E0%A5%87%E0%A4%96"
             className="inline-flex items-center gap-2 text-indigo-600 font-semibold hover:text-indigo-800 transition-all"
           >
             <span className="text-xl">←</span> <span>वापस जाएं</span>
