@@ -130,7 +130,7 @@ export default function PostDetailPage() {
             {/* Main Content */}
             <div className="lg:col-span-8 post ">
 
-              <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-snug">
+              <h1 className="text-2xl md:text-3xl font-extrabold text-gray-800 md:text-gray-800 mb-6 leading-snug">
                 {post.title}
               </h1>
 
@@ -179,14 +179,6 @@ export default function PostDetailPage() {
                 }}
               />
 
-              {/* Share Button for Mobile */}
-              <div className="lg:hidden mt-6">
-                <ShareModal
-                  url={`https://मेरठरंग.भारत/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
-                  title={post.title}
-                  description={post.short_description || post.title}
-                />
-              </div>
             </div>
 
             {/* Sidebar */}
