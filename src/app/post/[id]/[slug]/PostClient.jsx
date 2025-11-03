@@ -6,6 +6,7 @@ import Link from "next/link";
 import api from "../../../../lib/api";
 import RecentPosts from "../../../../components/RecentPosts";
 import Subscriber from "@/components/home/Subscriber";
+import ShareModal from "../../../../components/ShareModal";
 
 export default function PostDetailPage() {
   const { id: postId } = useParams();
@@ -127,7 +128,7 @@ export default function PostDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 ">
 
             {/* Main Content */}
-            <div className="lg:col-span-8 post">
+            <div className="lg:col-span-8 post ">
 
               <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-snug">
                 {post.title}
@@ -172,17 +173,36 @@ export default function PostDetailPage() {
               )}
 
               <div
-                className="prose prose-lg max-w-none text-gray-800 leading-relaxed text-justify prose-img:w-full"
+                className="prose prose-lg max-w-none text-gray-800 leading-relaxed text-justify prose-img:w-full  bg-no-repeat bg-center bg-cover rounded-lg p-6" style={{ backgroundColor: post.color || "#ffffff" }}
                 dangerouslySetInnerHTML={{
                   __html: post.content || post.description || "",
                 }}
               />
+
+              {/* Share Button for Mobile */}
+              <div className="lg:hidden mt-6">
+                <ShareModal
+                  url={`https://meerutrange.in/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
+                  title={post.title}
+                  description={post.short_description || post.title}
+                />
+              </div>
             </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-4 sticky top-0 space-y-6">
               <div className="shadow mb-4 rounded"><Subscriber /></div>
-              <RecentPosts />
+              <div className="">
+                <ShareModal
+                  url={`https://meerutrange.in/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
+                  title={post.title}
+                  description=""
+                />
+              </div>
+              <RecentPosts currentPostId={post.id} />
+
+              {/* Share Button for Desktop */}
+
             </div>
           </div>
         )}

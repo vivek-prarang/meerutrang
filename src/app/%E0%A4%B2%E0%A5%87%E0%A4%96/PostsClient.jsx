@@ -8,7 +8,7 @@ import Heading from "@/components/ui/Heading";
 
 function AllPostsContent() {
   const [posts, setPosts] = useState([]);
-  const [grouped, setGrouped] = useState(false); // 🔹 Check if data grouped by month
+  const [grouped, setGrouped] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [page, setPage] = useState(1);
@@ -21,8 +21,8 @@ function AllPostsContent() {
 
   const searchParams = useSearchParams();
 
-  // 🔹 Fetch posts
-  const fetchPosts = async (pageNum = 1, append = false, cityParam = null, tagIdParam = null) => {
+  // 🔹 Fetch posts from API
+  const fetchPosts = async (pageNum = 1, append = false, cityParam, tagIdParam) => {
     try {
       setLoading(true);
       setErrorMsg(null);
@@ -37,39 +37,47 @@ function AllPostsContent() {
         },
       };
 
-      if (cityParam || location) params.params.city = cityParam || location;
-      if (tagIdParam || tagId) params.params.tag_id = tagIdParam || tagId;
+      if (cityParam) params.params.city = cityParam;
+      if (tagIdParam) params.params.tag_id = tagIdParam;
 
       const { data, error } = await api.get("/daily-posts/list", params);
       if (error) throw new Error(error);
 
       if (data?.success && data?.data?.posts) {
-        setLastPage(data.data.pagination.last_page || 1);
-        setPage(data.data.pagination.current_page || 1);
-
+        const pagination = data.data.pagination || {};
         const fetchedPosts = data.data.posts;
-        const isGrouped = typeof fetchedPosts === "object" && !Array.isArray(fetchedPosts);
 
+        setLastPage(pagination.last_page || 1);
+        setPage(pagination.current_page || 1);
+
+        const isGrouped = typeof fetchedPosts === "object" && !Array.isArray(fetchedPosts);
         setGrouped(isGrouped);
 
+        let newPosts = [];
+
         if (isGrouped) {
-          // 🔹 Flatten grouped posts but keep month info
-          const postsWithMonth = [];
           Object.entries(fetchedPosts).forEach(([month, monthPosts]) => {
             if (Array.isArray(monthPosts)) {
               monthPosts.forEach((post) => {
-                postsWithMonth.push({ ...post, month });
+                newPosts.push({ ...post, month });
               });
             }
           });
-
-          setPosts((prev) => (append ? [...prev, ...postsWithMonth] : postsWithMonth));
         } else {
-          // 🔹 Plain list of posts
-          setPosts((prev) => (append ? [...prev, ...fetchedPosts] : fetchedPosts));
+          newPosts = fetchedPosts;
         }
+
+        // 🧩 Avoid duplicates by ID
+        setPosts((prev) => {
+          const combined = append ? [...prev, ...newPosts] : newPosts;
+          const unique = combined.filter(
+            (p, index, self) => index === self.findIndex((t) => t.id === p.id)
+          );
+          return unique;
+        });
       } else {
         setErrorMsg("कोई पोस्ट नहीं मिली।");
+        if (!append) setPosts([]);
       }
     } catch (err) {
       console.error("Error fetching posts:", err);
@@ -79,7 +87,7 @@ function AllPostsContent() {
     }
   };
 
-  // 🔹 Initial fetch
+  // 🔹 Refetch when URL params change
   useEffect(() => {
     const city = searchParams.get("city");
     const tag_id = searchParams.get("tagid");
@@ -89,19 +97,21 @@ function AllPostsContent() {
     setTagId(tag_id || "");
     setTagName(tag_name || "");
 
+    setPosts([]); // Clear previous posts
+    setPage(1);
     fetchPosts(1, false, city, tag_id);
-  }, []);
+  }, [searchParams]);
 
-  // 🔹 Infinite Scroll (with 5-load limit)
+  // 🔹 Infinite Scroll
   useEffect(() => {
     const handleScroll = async () => {
       if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 &&
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
         !loading &&
         page < lastPage &&
         canAutoLoad
       ) {
-        await fetchPosts(page + 1, true);
+        await fetchPosts(page + 1, true, location, tagId);
         setAutoLoadCount((count) => count + 1);
         if (autoLoadCount + 1 >= 5) setCanAutoLoad(false);
       }
@@ -109,12 +119,12 @@ function AllPostsContent() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, page, lastPage, canAutoLoad, autoLoadCount]);
+  }, [loading, page, lastPage, canAutoLoad, autoLoadCount, location, tagId]);
 
   // 🔹 Manual Load More
   const handleLoadMore = async () => {
     if (page < lastPage) {
-      await fetchPosts(page + 1, true);
+      await fetchPosts(page + 1, true, location, tagId);
       setAutoLoadCount(0);
       setCanAutoLoad(true);
     }
@@ -122,7 +132,7 @@ function AllPostsContent() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
-      {/* 🔹 Heading */}
+      {/* Heading */}
       <Heading title={tagName || "मेरठ दैनिक लेख"} />
 
       {/* City Tag */}
@@ -143,36 +153,22 @@ function AllPostsContent() {
         </div>
       )}
 
-      {/* 🔹 Render grouped or flat posts */}
-      {Array.isArray(posts) && posts.length > 0 ? (
+      {/* Posts */}
+      {posts.length > 0 ? (
         grouped ? (
-          // 🧩 Grouped by month
           (() => {
-            let currentMonth = null;
-            const monthGroups = [];
-            let currentGroup = [];
-
-            posts.forEach((post) => {
-              if (post.month !== currentMonth) {
-                if (currentGroup.length > 0)
-                  monthGroups.push({ month: currentMonth, posts: currentGroup });
-                currentMonth = post.month;
-                currentGroup = [post];
-              } else {
-                currentGroup.push(post);
-              }
-            });
-
-            if (currentGroup.length > 0)
-              monthGroups.push({ month: currentMonth, posts: currentGroup });
-
-            return monthGroups.map((group) => (
-              <div key={group.month}>
+            const groupedPosts = posts.reduce((acc, post) => {
+              if (!acc[post.month]) acc[post.month] = [];
+              acc[post.month].push(post);
+              return acc;
+            }, {});
+            return Object.entries(groupedPosts).map(([month, monthPosts]) => (
+              <div key={month}>
                 <h4 className="text-2xl md:text-3xl font-bold text-gray-600 mt-1 pb-1">
-                  {group.month}
+                  {month}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                  {group.posts.map((post) => (
+                  {monthPosts.map((post) => (
                     <PostCard key={post.id} post={post} />
                   ))}
                 </div>
@@ -180,7 +176,6 @@ function AllPostsContent() {
             ));
           })()
         ) : (
-          // 🧩 Flat list view
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
@@ -188,12 +183,10 @@ function AllPostsContent() {
           </div>
         )
       ) : (
-        !loading && (
-          <div className="text-center text-gray-500 mt-8">कोई पोस्ट नहीं मिली।</div>
-        )
+        !loading && <div className="text-center text-gray-500 mt-8">कोई पोस्ट नहीं मिली।</div>
       )}
 
-      {/* Loading Indicator */}
+      {/* Loading */}
       {loading && (
         <div className="flex justify-center items-center mt-8 text-blue-600 animate-pulse">
           पोस्ट लोड हो रही हैं...
@@ -207,7 +200,7 @@ function AllPostsContent() {
         </div>
       )}
 
-      {/* Load More Button */}
+      {/* Load More */}
       {!loading && !canAutoLoad && page < lastPage && (
         <div className="text-center mt-10">
           <button
@@ -227,8 +220,11 @@ function AllPostsContent() {
   );
 }
 
-// 🔹 Reusable Post Card Component
+// 🔹 Post Card Component
 function PostCard({ post }) {
+  const bg = post.color || "#ffffff";
+  const textColor = bg === "#4d4d4d" ? "#ffffff" : "#000000";
+
   return (
     <div className="group relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 transform-gpu">
       <div className="relative w-full h-56 overflow-hidden">
@@ -243,15 +239,21 @@ function PostCard({ post }) {
         </div>
       </div>
 
-      <div className="p-5 flex flex-col justify-between h-full" style={{ backgroundColor: post.color || "#ffffff" }}>
+      <div
+        className="p-5 flex flex-col justify-between h-full"
+        style={{ backgroundColor: bg, color: textColor }}
+      >
         <div>
           <Link href={`/लेख/${post.id}/${post.title.replace(/\s+/g, "-")}`}>
-            <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 cursor-pointer hover:text-indigo-600 transition">
+            <h3
+              className="text-lg font-bold mb-2 line-clamp-2 cursor-pointer hover:text-indigo-600 transition"
+              style={{ color: textColor }}
+            >
               {post.title}
             </h3>
           </Link>
           <p
-            className="text-gray-600 text-sm leading-relaxed line-clamp-3"
+            className="text-sm leading-relaxed line-clamp-3"
             dangerouslySetInnerHTML={{
               __html: post.short_description || "",
             }}
