@@ -35,11 +35,11 @@ export async function generateMetadata({ params }) {
       ?.replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "")
       .trim() || post.title;
-    const url = `https://meerutrang.in/लेख/${postId}/${generatedSlug}`;
+    const url = `https://मेरठरंग.भारत/लेख/${postId}/${generatedSlug}`;
     return {
     title,
     description,
-    metadataBase: new URL("https://meerutrang.in"),
+    metadataBase: new URL("https://मेरठरंग.भारत"),
     alternates: {
       canonical: url,
     },
