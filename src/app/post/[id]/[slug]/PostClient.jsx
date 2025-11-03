@@ -182,7 +182,7 @@ export default function PostDetailPage() {
               {/* Share Button for Mobile */}
               <div className="lg:hidden mt-6">
                 <ShareModal
-                  url={`https://meerutrange.in/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
+                  url={`https://मेरठरंग.भारत/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
                   title={post.title}
                   description={post.short_description || post.title}
                 />
@@ -194,7 +194,7 @@ export default function PostDetailPage() {
               <div className="shadow mb-4 rounded"><Subscriber /></div>
               <div className="">
                 <ShareModal
-                  url={`https://meerutrange.in/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
+                  url={`https://मेरठरंग.भारत/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
                   title={post.title}
                   description=""
                 />
