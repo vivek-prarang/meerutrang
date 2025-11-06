@@ -182,26 +182,28 @@ export default function PostDetailPage() {
                   __html: post.content || post.description || "",
                 }}
               />
-              <div id="" className="definitions p-3 shadow-lg mt-10 rounded-lg bg-gray-50 ">
-                <h3 className="font-bold mb-2">Definitions of the Post Viewership Metrics</h3>
-                <ol className="list-disc list-inside">
-                  <li>
-                    <strong>A. City Subscribers (FB + App) -</strong> This is the total city-based unique subscribers from the Prarang Hindi FB page and the Prarang App who reached this specific post.
-                  </li>
-                  <li>
-                    <strong>B. Website (Google + Direct) -</strong> This is the total viewership of readers who reached this post directly through their browsers and via Google search.
-                  </li>
-                  <li>
-                    <strong>C. Messaging Subscribers -</strong> This is the total viewership from City Portal subscribers who opted for hyperlocal daily messaging and received this post.
-                  </li>
-                  <li>
-                    <strong>D. Total Viewership -</strong> This is the Sum of all Subscribers (FB+App), Website (Google+Direct), Email, and Instagram who reached this Prarang post/page.
-                  </li>
-                  <li>
-                    <strong>E. The Reach (Viewership) -</strong> The reach on the post is updated either on the 6th day from the day of posting or on the completion (Day 31 or 32) of one month from the day of posting.
-                  </li>
-                </ol>
-              </div>
+              {post.analytics.total_views > 0 && (
+                <div id="" className="definitions p-3 shadow-lg mt-10 rounded-lg bg-gray-50 ">
+                  <h3 className="font-bold mb-2">Definitions of the Post Viewership Metrics</h3>
+                  <ol className="list-disc list-inside">
+                    <li>
+                      <strong>A. City Subscribers (FB + App) -</strong> This is the total city-based unique subscribers from the Prarang Hindi FB page and the Prarang App who reached this specific post.
+                    </li>
+                    <li>
+                      <strong>B. Website (Google + Direct) -</strong> This is the total viewership of readers who reached this post directly through their browsers and via Google search.
+                    </li>
+                    <li>
+                      <strong>C. Messaging Subscribers -</strong> This is the total viewership from City Portal subscribers who opted for hyperlocal daily messaging and received this post.
+                    </li>
+                    <li>
+                      <strong>D. Total Viewership -</strong> This is the Sum of all Subscribers (FB+App), Website (Google+Direct), Email, and Instagram who reached this Prarang post/page.
+                    </li>
+                    <li>
+                      <strong>E. The Reach (Viewership) -</strong> The reach on the post is updated either on the 6th day from the day of posting or on the completion (Day 31 or 32) of one month from the day of posting.
+                    </li>
+                  </ol>
+                </div>
+              )}
             </div>
 
 
