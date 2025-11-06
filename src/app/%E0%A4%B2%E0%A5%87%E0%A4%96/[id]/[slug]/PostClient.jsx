@@ -144,7 +144,7 @@ export default function PostDetailPage() {
                 <div className="mb-3">
                   <table className="w-full border-collapse border border-gray-400 text-gray-600 text-sm">
                     <tr className="border">
-                      <th colSpan="4" className="border-b border-gray-200 bg-gray-50 text-center">Post Viewership from Post Date to:-
+                      <th colSpan="4" className="border-b border-gray-200 bg-gray-50 text-center">Post Viewership from Post Date to
                         {post.analytics.post_viewership_date_to} {post.analytics.month_days} </th>
                     </tr>
                     <tr className="border">
