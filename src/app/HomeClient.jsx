@@ -29,9 +29,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen w-full bg-cover bg-no-repeat bg-center home-bg" style={{ backgroundImage: `url(${portal?.image_base + portal?.header_image})` }}>
-
       <Header data={portal} />
-
       <section className="w-full px-4 py-6">
         <div className="container mx-auto flex flex-col lg:flex-row gap-6">
           {/* Left Side */}
@@ -46,7 +44,6 @@ export default function Home() {
               <NewsFeed />
             </div>
           </div>
-
           {/* Middle Section */}
           <div className="w-full lg:w-6/12 order-1 lg:order-2">
             <div className="">
@@ -129,7 +126,6 @@ export default function Home() {
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-3xl opacity-50"></div>
                             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full blur-2xl opacity-50"></div>
                           </div>
-
                           {/* Content */}
                           <div className="relative z-10">
                             <div className="flex items-center justify-between mb-6">
@@ -179,7 +175,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
           {/* Right Side */}
           <div className="w-full lg:w-3/12 order-3 lg:order-3">
 
@@ -191,7 +186,6 @@ export default function Home() {
               <a href={`https://prarang.in/yp/meerut`} target="_blank">
                 <img src="https://www.prarang.in/assets/images/yellowpages.jpg" alt="Login" className="h-[420px] w-full" />
               </a>
-
             </div>
           </div>
         </div>
@@ -250,7 +244,5 @@ export default function Home() {
         </div>
       </footer>
     </main>
-
-
   );
 }

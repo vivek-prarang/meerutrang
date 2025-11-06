@@ -142,21 +142,25 @@ export default function PostDetailPage() {
               </div>
               {post.analytics.total_views > 0 && (
                 <div className="mb-3">
-                  <table className="w-full border-collapse border border-gray-200 text-gray-600 text-sm">
-                    <tr>
-                      <th colSpan="4" className="border-b border-gray-200 bg-gray-50 text-center">पोस्ट दर्शकता</th>
+                  <table className="w-full border-collapse border border-gray-400 text-gray-600 text-sm">
+                    <tr className="border">
+                      <th colSpan="4" className="border-b border-gray-200 bg-gray-50 text-center">Post Viewership from Post Date to:-
+                        {post.analytics.post_viewership_date_to} {post.analytics.month_days} </th>
                     </tr>
-                    <tr>
-                      <th className="text-center">शहर सदस्य (FB+ऐप्प)</th>
-                      <th className="text-center">वेबसाइट (Direct+Google)</th>
-                      <th className="text-center">मेसेजिंग सदस्य</th>
-                      <th className="text-center">कुल</th>
+                    <tr className="border">
+                      <th className="text-center">City Subscribers (FB+App)</th>
+                      <th className="text-center">Website (Direct+Google)</th>
+                      <th className="text-center">Messaging Subscribers</th>
+                      <th className="text-center">Total</th>
                     </tr>
-                    <tr>
-                      <td className="text-center">{post.analytics.city_subscrivers}</td>
-                      <td className="text-center">{post.analytics.website_views}</td>
-                      <td className="text-center">{post.analytics.whatsapp_views + post.analytics.instagram_views}</td>
-                      <td className="text-center">{post.analytics.total_views}</td>
+                    <tr className="border">
+                      <td className="text-center">{Number(post.analytics.city_subscrivers ?? 0) + Number(post.analytics.app_views ?? 0)}</td>
+                      <td className="text-center">{Number(post.analytics.website_views ?? 0)}</td>
+                      <td className="text-center">{Number(post.analytics.whatsapp_views ?? 0) + Number(post.analytics.instagram_views ?? 0)}</td>
+                      <td className="text-center">{Number(post.analytics.total_views ?? 0)}</td>
+                    </tr>
+                    <tr className="border">
+                      <th colSpan="4" className="border-b border-gray-200 bg-gray-50  text-start">* Please see metrics definition on bottom of this page.</th>
                     </tr>
 
                   </table>
@@ -178,8 +182,30 @@ export default function PostDetailPage() {
                   __html: post.content || post.description || "",
                 }}
               />
-
+              <div id="" className="definitions p-3 shadow-lg mt-10 rounded-lg bg-gray-50 ">
+                <h3 className="font-bold mb-2">Definitions of the Post Viewership Metrics</h3>
+                <ol className="list-disc list-inside">
+                  <li>
+                    <strong>A. City Subscribers (FB + App) -</strong> This is the total city-based unique subscribers from the Prarang Hindi FB page and the Prarang App who reached this specific post.
+                  </li>
+                  <li>
+                    <strong>B. Website (Google + Direct) -</strong> This is the total viewership of readers who reached this post directly through their browsers and via Google search.
+                  </li>
+                  <li>
+                    <strong>C. Messaging Subscribers -</strong> This is the total viewership from City Portal subscribers who opted for hyperlocal daily messaging and received this post.
+                  </li>
+                  <li>
+                    <strong>D. Total Viewership -</strong> This is the Sum of all Subscribers (FB+App), Website (Google+Direct), Email, and Instagram who reached this Prarang post/page.
+                  </li>
+                  <li>
+                    <strong>E. The Reach (Viewership) -</strong> The reach on the post is updated either on the 6th day from the day of posting or on the completion (Day 31 or 32) of one month from the day of posting.
+                  </li>
+                </ol>
+              </div>
             </div>
+
+
+
 
             {/* Sidebar */}
             <div className="lg:col-span-4 sticky top-0 space-y-6">
