@@ -129,11 +129,9 @@ export default function PostDetailPage() {
 
             {/* Main Content */}
             <div className="lg:col-span-8 post ">
-
               <h1 className="text-2xl md:text-3xl font-extrabold text-gray-800 md:text-gray-800 mb-6 leading-snug">
                 {post.title}
               </h1>
-
               <div className="flex flex-wrap items-center gap-4 mb-8 text-gray-600 text-sm">
                 <span className="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full font-semibold">
                   {post.tags || "पोस्ट"}
@@ -208,7 +206,18 @@ export default function PostDetailPage() {
 
             {/* Sidebar */}
             <div className="lg:col-span-4 sticky top-0 space-y-6">
-              <div className="shadow mb-4 rounded"><Subscriber /></div>
+              <style>
+                {`
+                .flex-1 .justify-center .items-center{
+                align-items:normal;
+                }
+
+                .cursor-pointer .items-center p{
+                padding-top:32px !important;
+                }
+                `}
+              </style>
+              <div className="shadow mb-4 rounded"><Subscriber size="square" /></div>
               <div className="">
                 <ShareModal
                   url={`https://meerutrang.in/post/${post.id}/${post.en_title?.replace(/\s+/g, "-").toLowerCase() || post.id}`}
@@ -224,6 +233,6 @@ export default function PostDetailPage() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }

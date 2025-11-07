@@ -46,6 +46,7 @@ export default function Home() {
           </div>
           {/* Middle Section */}
           <div className="w-full lg:w-6/12 order-1 lg:order-2">
+            <Subscriber />
             <div className="">
               <div className="mb-2 p-3 py-5 flex justify-center items-center w-full" style={{ backgroundColor: "rgba(0,0,0,0.63)" }}>
                 <h2 className="text-3xl font-bold text-center text-white">{portal?.city_slogan}</h2>
@@ -181,7 +182,7 @@ export default function Home() {
             <div className="p-3 flex items-center justify-items-center  bg-weth">
               <WeatherWidget className="w-full" code={portal?.weather_widget_code} />
             </div>
-            <Subscriber />
+
             <div className=" p-1 m-1 mt-3 ">
               <a href={`https://prarang.in/yp/meerut`} target="_blank">
                 <img src="https://www.prarang.in/assets/images/yellowpages.jpg" alt="Login" className="h-[420px] w-full" />
