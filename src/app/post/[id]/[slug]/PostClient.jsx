@@ -208,14 +208,14 @@ export default function PostDetailPage() {
             <div className="lg:col-span-4 sticky top-0 space-y-6">
               <style>
                 {`
-                .flex-1 .justify-center .items-center{
-                align-items:normal;
-                }
+                                       .pitsquirp{
+                                       align-items:normal;
+                                       }
 
-                .cursor-pointer .items-center p{
-                padding-top:32px !important;
-                }
-                `}
+                                       .squirp{
+                                       padding-top:32px !important;
+                                       }
+                                       `}
               </style>
               <div className="shadow mb-4 rounded"><Subscriber size="square" /></div>
               <div className="">

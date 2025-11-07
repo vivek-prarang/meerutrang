@@ -53,8 +53,8 @@ export default function Subscriber({ size = "", className = "" }) {
           />
         )}
 
-        <div className="absolute inset-0 flex items-center">
-          <p className="text-lg md:text-xl font-bold text-center bg-opacity-50 heartbeat-effect" style={{ fontSize: 30 }}>
+        <div className="absolute inset-0 flex items-center pitsquirp">
+          <p className=" squirp text-lg md:text-xl font-bold text-center bg-opacity-50 heartbeat-effect" style={{ fontSize: 30 }}>
             प्रारंग के मेरठ दैनिक पोस्ट (Post) को प्रतिदिन WhatsApp पर पाए
           </p>
         </div>
