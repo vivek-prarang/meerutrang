@@ -146,7 +146,7 @@ export default function PostDetailPage() {
                         {post.analytics.post_viewership_date_to} {post.analytics.month_days} </th>
                     </tr>
                     <tr className="border">
-                      <th className="text-center">City Subscribers (FB+App)</th>
+                      <th className="text-center">City Readerships (FB+App)</th>
                       <th className="text-center">Website (Direct+Google)</th>
                       <th className="text-center">Messaging Subscribers</th>
                       <th className="text-center">Total</th>
@@ -185,7 +185,7 @@ export default function PostDetailPage() {
                   <h3 className="font-bold mb-2">Definitions of the Post Viewership Metrics</h3>
                   <ol className="list-disc list-inside">
                     <li>
-                      <strong>A. City Subscribers (FB + App) -</strong> This is the total city-based unique subscribers from the Prarang Hindi FB page and the Prarang App who reached this specific post.
+                      <strong>A. City Readerships (FB+App) (FB + App) -</strong> This is the total number of city-based unique readers who reached this specific post from the Prarang Hindi FB page and the Prarang App.
                     </li>
                     <li>
                       <strong>B. Website (Google + Direct) -</strong> This is the total viewership of readers who reached this post directly through their browsers and via Google search.
@@ -194,7 +194,7 @@ export default function PostDetailPage() {
                       <strong>C. Messaging Subscribers -</strong> This is the total viewership from City Portal subscribers who opted for hyperlocal daily messaging and received this post.
                     </li>
                     <li>
-                      <strong>D. Total Viewership -</strong> This is the Sum of all Subscribers (FB+App), Website (Google+Direct), Email, and Instagram who reached this Prarang post/page.
+                      <strong>D. Total Viewership -</strong> This is the Sum of all our readers through FB+App, Website (Google+Direct), Email, WhatsApp, and Instagram who reached this Prarang post/page.
                     </li>
                     <li>
                       <strong>E. The Reach (Viewership) -</strong> The reach on the post is updated either on the 6th day from the day of posting or on the completion (Day 31 or 32) of one month from the day of posting.
@@ -207,8 +207,7 @@ export default function PostDetailPage() {
             {/* Sidebar */}
             <div className="lg:col-span-4 sticky top-0 space-y-6">
               <style>
-                {`
-                                       .pitsquirp{
+                {`                                       .pitsquirp{
                                        align-items:normal;
                                        }
 

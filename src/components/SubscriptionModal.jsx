@@ -7,6 +7,7 @@ export default function SubscriptionModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
     mobile: "",
+    email: "",
     city: "",
   });
 
@@ -17,7 +18,57 @@ export default function SubscriptionModal({ isOpen, onClose }) {
   const [isLoadingCities, setIsLoadingCities] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const dropdownRef = useRef(null);
+
+  // Check for #subscribe in URL and ?subscriber query parameter
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === "#subscribe") {
+        setIsModalOpen(true);
+      }
+    };
+
+    const checkQueryParameter = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.has("subscriber")) {
+        setIsModalOpen(true);
+      }
+    };
+
+    // Check on component mount and page load
+    if (typeof window !== "undefined") {
+      // Initial checks
+      handleHashChange();
+      checkQueryParameter();
+
+      // Listen for hash changes
+      window.addEventListener("hashchange", handleHashChange);
+      return () => window.removeEventListener("hashchange", handleHashChange);
+    }
+  }, []);
+
+  // Expose openSubscriptionModal function to window for external JS calls
+  useEffect(() => {
+    window.openSubscriptionModal = () => {
+      setIsModalOpen(true);
+    };
+
+    window.closeSubscriptionModal = () => {
+      setIsModalOpen(false);
+      window.history.replaceState(null, "", window.location.pathname);
+    };
+
+    return () => {
+      delete window.openSubscriptionModal;
+      delete window.closeSubscriptionModal;
+    };
+  }, []);
+
+  // Sync with parent isOpen prop
+  useEffect(() => {
+    setIsModalOpen(isOpen);
+  }, [isOpen]);
 
   // Fetch cities from API
   useEffect(() => {
@@ -29,26 +80,23 @@ export default function SubscriptionModal({ isOpen, onClose }) {
         });
 
         if (response.data?.data?.cities) {
-          // Flatten all cities from all states
           const allCities = [];
           Object.keys(response.data.data.cities).forEach((stateId) => {
             const stateCities = response.data.data.cities[stateId];
             stateCities.forEach((city) => {
               allCities.push({
                 id: city.id,
-                name: city.city, // Hindi name
-                englishName: city.local_name, // English name
+                name: city.city,
+                englishName: city.local_name,
                 state: city.state,
                 slug: city.city_slug,
               });
             });
           });
 
-          // Sort cities alphabetically by Hindi name
           allCities.sort((a, b) => a.name.localeCompare(b.name, "hi"));
           setCities(allCities);
 
-          // Auto-select Meerut
           const meerutCity = allCities.find(
             city => city.englishName?.toLowerCase() === "meerut" || city.name?.toLowerCase().includes("मेरठ")
           );
@@ -64,10 +112,10 @@ export default function SubscriptionModal({ isOpen, onClose }) {
       }
     };
 
-    if (isOpen) {
+    if (isModalOpen) {
       fetchCities();
     }
-  }, [isOpen]);
+  }, [isModalOpen]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -80,23 +128,6 @@ export default function SubscriptionModal({ isOpen, onClose }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Load Facebook SDK when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      if (window.FB) {
-        window.FB.XFBML.parse();
-      } else {
-        // Load Facebook SDK script
-        const script = document.createElement("script");
-        script.async = true;
-        script.defer = true;
-        script.crossOrigin = "anonymous";
-        script.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v24.0&appId=990630689876973";
-        document.body.appendChild(script);
-      }
-    }
-  }, [isOpen]);
 
   // Filter cities based on search term
   const filteredCities = cities.filter((city) => {
@@ -111,7 +142,6 @@ export default function SubscriptionModal({ isOpen, onClose }) {
   const validateForm = () => {
     const newErrors = {};
 
-    // Name validation
     if (!formData.name.trim()) {
       newErrors.name = "कृपया अपना नाम दर्ज करें";
     } else if (formData.name.trim().length < 2) {
@@ -120,14 +150,18 @@ export default function SubscriptionModal({ isOpen, onClose }) {
       newErrors.name = "नाम में केवल अक्षर होने चाहिए";
     }
 
-    // Mobile validation
     if (!formData.mobile.trim()) {
       newErrors.mobile = "कृपया अपना मोबाइल नंबर दर्ज करें";
     } else if (!/^[6-9]\d{9}$/.test(formData.mobile)) {
       newErrors.mobile = "कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें";
     }
 
-    // City validation
+    if (!formData.email.trim()) {
+      newErrors.email = "कृपया अपना ईमेल दर्ज करें";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "कृपया वैध ईमेल दर्ज करें";
+    }
+
     if (!formData.city) {
       newErrors.city = "कृपया अपना शहर चुनें";
     }
@@ -180,27 +214,20 @@ export default function SubscriptionModal({ isOpen, onClose }) {
     setIsSubmitting(true);
 
     try {
-      // API call to subscribe endpoint
       const response = await api.post("subscribe", {
         name: formData.name,
         mobile: formData.mobile,
+        email: formData.email,
         city: formData.city,
       });
 
       console.log("Subscription successful:", response.data);
       setIsSubmitted(true);
-
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({ name: "", mobile: "", city: "" });
-        setSearchTerm("");
-        setIsDropdownOpen(false);
-        onClose();
-      }, 3000);
+      setFormData({ name: "", mobile: "", email: "", city: "" });
+      setSearchTerm("");
+      setIsDropdownOpen(false);
     } catch (error) {
       console.error("Subscription error:", error);
-      // Show error message to user
       alert("सब्सक्रिप्शन में त्रुटि हुई। कृपया पुनः प्रयास करें।");
     } finally {
       setIsSubmitting(false);
@@ -214,11 +241,14 @@ export default function SubscriptionModal({ isOpen, onClose }) {
       setIsSubmitted(false);
       setSearchTerm("");
       setIsDropdownOpen(false);
+      setIsModalOpen(false);
+      // Remove hash from URL
+      window.history.replaceState(null, "", window.location.pathname);
       onClose();
     }
   };
 
-  if (!isOpen) return null;
+  if (!isModalOpen) return null;
 
   return (
     <div
@@ -230,23 +260,13 @@ export default function SubscriptionModal({ isOpen, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-br from-blue-600 via-blue-500 to-purple-600 p-8 rounded-t-2xl relative overflow-hidden sticky top-0 z-10">
-          <div className="absolute inset-0 opacity-10">
-            <svg className="absolute top-0 right-0 w-40 h-40 text-white" fill="currentColor" viewBox="0 0 100 100">
-              <circle cx="20" cy="20" r="15" opacity="0.3" />
-              <circle cx="80" cy="80" r="20" opacity="0.2" />
-            </svg>
-          </div>
+        <div className="bg-gradient-to-br  p-2 rounded-t-2xl relative overflow-hidden sticky top-0 z-10">
+
           <div className="relative z-10 flex items-start justify-between gap-4">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">
-                {isSubmitted ? "🎉 धन्यवाद!" : "📬 सब्सक्राइब करें"}
+              <h2 className="text-2xl font-bold text-dark">
+                {isSubmitted ? "🎉 धन्यवाद!" : "सब्सक्राइब करें"}
               </h2>
-              <p className="text-blue-100 text-sm leading-relaxed">
-                {isSubmitted
-                  ? "आपकी सदस्यता सफल रही है"
-                  : "नवीनतम समाचार और अपडेट प्राप्त करें"}
-              </p>
             </div>
             {!isSubmitting && (
               <button
@@ -265,19 +285,83 @@ export default function SubscriptionModal({ isOpen, onClose }) {
         {/* Content */}
         <div className="p-8 bg-gradient-to-b from-white to-gray-50">
           {isSubmitted ? (
-            <div className="text-center py-12">
-              <div className="mb-6 inline-flex p-5 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full shadow-lg">
-                <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+            <div className="space-y-6">
+              <div className="text-center py-8">
+                <div className="mb-6 inline-flex p-5 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full shadow-lg">
+                  <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                  सफलतापूर्वक सब्सक्राइब किया गया!
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  {formData.name || "आप"}, आपको जल्द ही अपडेट मिलने लगेंगे।
+                </p>
+                <div className="w-12 h-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mx-auto"></div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">
-                सफलतापूर्वक सब्सक्राइब किया गया!
-              </h3>
-              <p className="text-gray-600 mb-4">
-                {formData.name}, आपको जल्द ही अपडेट मिलने लगेंगे।
-              </p>
-              <div className="w-12 h-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mx-auto"></div>
+
+              {/* Social Media Icons */}
+              <div className="border-t-2 border-gray-200 pt-6">
+                <p className="text-center text-sm font-bold text-gray-700 uppercase tracking-wider mb-6">हमें फॉलो करें</p>
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Instagram */}
+                  <a
+                    href="https://www.instagram.com/prarang.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="Instagram पर फॉलो करें"
+                  >
+                    <i className="fab fa-instagram text-lg"></i>
+                    <span>Instagram</span>
+                  </a>
+
+                  {/* WhatsApp */}
+                  <a
+                    href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="WhatsApp ग्रुप ज्वाइन करें"
+                  >
+                    <i className="fab fa-whatsapp text-lg"></i>
+                    <span>WhatsApp</span>
+                  </a>
+
+                  {/* Twitter */}
+                  <a
+                    href="https://twitter.com/prarang_in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="Twitter पर फॉलो करें"
+                  >
+                    <i className="fab fa-twitter text-lg"></i>
+                    <span>Twitter</span>
+                  </a>
+
+                  {/* ShareChat */}
+                  <a
+                    href="https://www.sharechat.com/user/prarang"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="ShareChat पर फॉलो करें"
+                  >
+                    <i className="fab fa-share-alt text-lg"></i>
+                    <span>ShareChat</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Close Button */}
+              <button
+                onClick={handleClose}
+                className="w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+              >
+                बंद करें
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -337,6 +421,33 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                     </svg>
                     {errors.mobile}
+                  </p>
+                )}
+              </div>
+
+              {/* Email Field */}
+              <div>
+                <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
+                  ईमेल <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="your@email.com"
+                  className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 transition-all bg-white ${errors.email
+                    ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+                    : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"
+                    }`}
+                />
+                {errors.email && (
+                  <p className="mt-2 text-sm text-red-600 flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.email}
                   </p>
                 )}
               </div>
@@ -436,48 +547,63 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                 )}
               </button>
 
-              {/* Social Links Section */}
+              {/* Social Media Icons */}
               <div className="mt-6 pt-6 border-t-2 border-gray-200">
-                <h3 className="text-center font-bold text-gray-700 uppercase tracking-wider text-sm mb-4">हमें फॉलो करें</h3>
+                <p className="text-center text-sm font-bold text-gray-700 uppercase tracking-wider mb-6">हमें फॉलो करें</p>
                 <div className="grid grid-cols-2 gap-4">
-                  {/* Facebook */}
-                  <div className="flex justify-center items-start">
-                    <div id="fb-root"></div>
-                    <div
-                      className="fb-page"
-                      data-href="https://www.facebook.com/prarang.in"
-                      data-tabs=""
-                      data-width="240"
-                      data-height="280"
-                      data-small-header="true"
-                      data-adapt-container-width="true"
-                      data-hide-cover="true"
-                      data-show-facepile="true"
-                    >
-                      <blockquote cite="https://www.facebook.com/prarang.in" className="fb-xfbml-parse-ignore">
-                        <a href="https://www.facebook.com/prarang.in" className="text-blue-600 hover:underline">Prarang हिंदी</a>
-                      </blockquote>
-                    </div>
-                  </div>
+                  {/* Instagram */}
+                  <a
+                    href="https://www.instagram.com/prarang.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="Instagram पर फॉलो करें"
+                  >
+                    <i className="fab fa-instagram text-lg"></i>
+                    <span>Instagram</span>
+                  </a>
 
-                  {/* WhatsApp Group Link */}
-                  <div className="flex flex-row items-start">
-                    <a
-                      href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 group"
-                    >
-                      <i className="fa-brands fa-whatsapp text-3xl group-hover:animate-bounce"></i>
-                      <span className="text-sm text-center leading-tight font-semibold">मेरठ रंग<br />ग्रुप ज्वाइन करें</span>
-                    </a>
-                  </div>
+                  {/* WhatsApp */}
+                  <a
+                    href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="WhatsApp ग्रुप ज्वाइन करें"
+                  >
+                    <i className="fab fa-whatsapp text-lg"></i>
+                    <span>WhatsApp</span>
+                  </a>
+
+                  {/* Twitter */}
+                  <a
+                    href="https://twitter.com/prarang_in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="Twitter पर फॉलो करें"
+                  >
+                    <i className="fab fa-twitter text-lg"></i>
+                    <span>Twitter</span>
+                  </a>
+
+                  {/* ShareChat */}
+                  <a
+                    href="https://www.sharechat.com/user/prarang"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    title="ShareChat पर फॉलो करें"
+                  >
+                    <i className="fab fa-share-alt text-lg"></i>
+                    <span>ShareChat</span>
+                  </a>
                 </div>
               </div>
             </form>
           )}
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
