@@ -68,7 +68,8 @@ export default function PostDetailPage() {
   useEffect(() => {
     if (postId) fetchPost();
   }, [postId]);
-
+  const bg = post?.color || "#ffffff";
+  const textColor = bg === "#4d4d4d" ? "#ffffff" : "#000000";
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
       {/* 🔹 Shimmer Animation */}
@@ -175,7 +176,11 @@ export default function PostDetailPage() {
               )}
 
               <div
-                className="prose prose-lg max-w-none text-gray-800 leading-relaxed text-justify prose-img:w-full  bg-no-repeat bg-center bg-cover rounded-lg p-6" style={{ backgroundColor: post.color || "#ffffff" }}
+                className={`prose prose-lg max-w-none leading-relaxed text-justify prose-img:w-full rounded-lg p-6`}
+                style={{
+                  color: textColor,
+                  backgroundColor: bg,
+                }}
                 dangerouslySetInnerHTML={{
                   __html: post.content || post.description || "",
                 }}
