@@ -94,3 +94,72 @@ footer{
  }
 
 }
+
+/* Gradient */
+.home-bg .w-full .bg-gradient-to-b{
+ padding-top:1px;
+ padding-bottom:10px;
+}
+
+/* Label */
+.overflow-y-auto div label{
+ margin-bottom:5px;
+}
+
+/* Items start */
+.overflow-y-auto .overflow-hidden .items-start{
+ transform:translatex(0px) translatey(0px);
+ text-align:center;
+ justify-content:center;
+}
+
+/* Division */
+.overflow-y-auto form .mt-6{
+ padding-top:0px;
+ transform:translatex(0px) translatey(0px);
+ margin-top:16px;
+}
+
+/* Paragraph */
+.overflow-y-auto form p{
+ margin-bottom:6px;
+ padding-top:8px;
+}
+
+/* Disabled */
+.overflow-y-auto form .disabled\:transform-none{
+ margin-bottom:8px;
+}
+
+.overflow-y-auto form > div{
+ margin-bottom:9px;
+}
+
+/* Name */
+#name{
+ transform:translatex(0px) translatey(0px);
+ padding-left:10px;
+ padding-right:10px;
+ padding-top:8px;
+ padding-bottom:8px;
+}
+
+/* Mobile */
+#mobile{
+ padding-top:8px;
+ padding-bottom:8px;
+}
+
+/* Email */
+#email{
+ padding-top:8px;
+ padding-bottom:8px;
+}
+
+/* City */
+#city{
+ padding-top:8px;
+ padding-bottom:8px;
+}
+
+
