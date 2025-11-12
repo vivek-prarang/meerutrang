@@ -10,8 +10,10 @@ import Nav from "@/components/home/Nav";
 import WeatherWidget from "@/components/home/WeatherWidget";
 import Subscriber from "@/components/home/Subscriber";
 import NewsFeed from "@/components/home/NewsFeed";
+import SubscriptionModal from "@/components/SubscriptionModal";
 
 export default function Home() {
+  // const [portal, setPortal] = useState(null);
   const [portal, setPortal] = useState(null);
 
   useEffect(() => {
@@ -244,6 +246,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      <SubscriptionModal />
     </main>
   );
 }

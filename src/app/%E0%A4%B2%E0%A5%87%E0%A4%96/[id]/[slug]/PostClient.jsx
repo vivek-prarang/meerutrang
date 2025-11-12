@@ -206,9 +206,6 @@ export default function PostDetailPage() {
               )}
             </div>
 
-
-
-
             {/* Sidebar */}
             <div className="lg:col-span-4 sticky top-0 space-y-6">
               <style>
