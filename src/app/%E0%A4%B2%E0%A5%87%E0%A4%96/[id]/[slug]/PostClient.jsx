@@ -68,6 +68,24 @@ export default function PostDetailPage() {
   useEffect(() => {
     if (postId) fetchPost();
   }, [postId]);
+
+  // Load tracking script and collect information
+  useEffect(() => {
+    if (post?.id) {
+      // Load the external script
+      const script = document.createElement("script");
+      script.src = "https://www.prarang.in/location.js";
+      script.async = true;
+      document.body.appendChild(script);
+
+      // Call the function after script loads
+      script.onload = () => {
+        if (window.collectAndSendInformation) {
+          window.collectAndSendInformation(post.id, "meerut", "meerut-range");
+        }
+      };
+    }
+  }, [post?.id]);
   const bg = post?.color || "#ffffff";
   const textColor = bg === "#4d4d4d" ? "#ffffff" : "#000000";
   return (
@@ -116,7 +134,10 @@ export default function PostDetailPage() {
             </div>
           </div>
         )}
-
+        <style>{`
+          .post .prose-img p {
+            line-height: 2em !important;
+          `}</style>
         {/* 🔹 Error Message */}
         {errorMsg && !loading && (
           <div className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-xl text-center font-semibold">
@@ -238,8 +259,10 @@ export default function PostDetailPage() {
 
             </div>
           </div>
-        )}
-      </div>
+        )
+        }
+      </div >
+
     </div>
   );
 }

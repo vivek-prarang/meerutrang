@@ -203,6 +203,7 @@ function SubscriptionModal({ router }) {
       setIsSubmitted(false);
       setSearchTerm("");
       setIsDropdownOpen(false);
+      router.push("/");
     }
   };
 
@@ -218,24 +219,24 @@ function SubscriptionModal({ router }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-br p-2 rounded-t-2xl relative overflow-hidden sticky top-0 z-10">
-          <div className="relative z-10 flex items-start justify-between gap-4">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-4 rounded-t-2xl relative overflow-hidden sticky top-0 z-10">
+          <div className="relative z-10 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-dark">
+              <h2 className="text-2xl font-bold text-white">
                 {isSubmitted ? "🎉 धन्यवाद!" : "सब्सक्राइब करें"}
               </h2>
             </div>
-            {!isSubmitting && (
-              <button
-                onClick={handleClose}
-                className="flex-shrink-0 text-white/80 hover:text-white transition-colors p-2 hover:bg-white/20 rounded-lg"
-                aria-label="Close modal"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            )}
+            <button
+              onClick={handleClose}
+              disabled={isSubmitting}
+              className="flex-shrink-0 text-white hover:bg-white/20 transition-all p-2 rounded-lg hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Close modal"
+              title="Close"
+            >
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -244,9 +245,9 @@ function SubscriptionModal({ router }) {
           {isSubmitted ? (
             <div className="space-y-6">
               <div className="text-center py-8">
-                <div className="mb-6 inline-flex p-5 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full shadow-lg">
-                  <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <div className="mb-6 inline-flex p-5 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full shadow-lg animate-bounce">
+                  <svg className="w-16 h-16 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">
@@ -266,10 +267,10 @@ function SubscriptionModal({ router }) {
                     href="https://www.indusappstore.com/apps/news-and-magazines/prarang/com.riversanskiriti.prarang?page=details&id=com.riversanskiriti.prarang"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="Indus App Store पर फॉलो करें"
                   >
-                    <i className="fab fa-instagram text-lg"></i>
+                    <i className="fab fa-google-play text-lg"></i>
                     <span>Mobile App</span>
                   </a>
 

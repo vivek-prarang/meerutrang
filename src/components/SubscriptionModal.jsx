@@ -260,25 +260,25 @@ export default function SubscriptionModal({ isOpen, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-br  p-2 rounded-t-2xl relative overflow-hidden sticky top-0 z-10">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-4 rounded-t-2xl relative overflow-hidden sticky top-0 z-10">
 
-          <div className="relative z-10 flex items-start justify-between gap-4">
+          <div className="relative z-10 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-dark">
+              <h2 className="text-2xl font-bold text-white">
                 {isSubmitted ? "🎉 धन्यवाद!" : "सब्सक्राइब करें"}
               </h2>
             </div>
-            {!isSubmitting && (
-              <button
-                onClick={handleClose}
-                className="flex-shrink-0 text-white/80 hover:text-white transition-colors p-2 hover:bg-white/20 rounded-lg"
-                aria-label="Close modal"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            )}
+            <button
+              onClick={handleClose}
+              disabled={isSubmitting}
+              className="flex-shrink-0 text-white hover:bg-white/20 transition-all p-2 rounded-lg hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Close modal"
+              title="Close"
+            >
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </div>
 

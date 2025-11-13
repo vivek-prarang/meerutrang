@@ -68,6 +68,24 @@ export default function PostDetailPage() {
   useEffect(() => {
     if (postId) fetchPost();
   }, [postId]);
+
+  // Load tracking script and collect information
+  useEffect(() => {
+    if (post?.id) {
+      // Load the external script
+      const script = document.createElement("script");
+      script.src = "https://www.prarang.in/location.js";
+      script.async = true;
+      document.body.appendChild(script);
+
+      // Call the function after script loads
+      script.onload = () => {
+        if (window.collectAndSendInformation) {
+          window.collectAndSendInformation(post.id, "meerut", "");
+        }
+      };
+    }
+  }, [post?.id]);
   const bg = post?.color || "#ffffff";
   const textColor = bg === "#4d4d4d" ? "#ffffff" : "#000000";
   return (

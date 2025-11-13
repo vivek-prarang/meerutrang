@@ -163,3 +163,23 @@ footer{
 }
 
 
+/* Paragraph */
+.post  p{
+ line-height:2em !important;
+}
+
+/* Strong Tag */
+ ol strong{
+ line-height:2em !important;
+
+}
+
+/* Prose img */
+.flex-1 .grid .prose-img\:w-full{
+ line-height:2em !important;
+}
+
+
+
+
+
