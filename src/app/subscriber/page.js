@@ -284,7 +284,6 @@ function SubscriptionModal({ router }) {
                     <i className="fab fa-instagram text-lg"></i>
                     <span>Instagram</span>
                   </a>
-
                   <a
                     href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
                     target="_blank"
