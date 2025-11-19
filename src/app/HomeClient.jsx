@@ -37,17 +37,21 @@ export default function Home() {
           {/* Left Side */}
           <div className="w-full lg:w-3/12 bg-white/10 rounded-md order-2 lg:order-1">
             <Nav />
+
             <div className="bg-white  rounded p-3 mb-3">
-              <div className="py-1 mb-2 text-xl font-bold border-b-1  "><i className="fas fa-location"></i> स्थानीय जानकारी</div>
-              <div className="" dangerouslySetInnerHTML={{ __html: portal?.local_matrics }} />
-            </div>
-            <div className="bg-white  rounded p-3">
               <div className="py-1 mb-2 text-xl font-bold border-b-1"><i className="fas fa-newspaper"></i> मेरठ का समाचार</div>
               <NewsFeed />
+            </div>
+            <div className="bg-white  rounded p-3 ">
+              <div className="py-1 mb-2 text-xl font-bold border-b-1  "><i className="fas fa-location"></i> स्थानीय जानकारी</div>
+              <div className="" dangerouslySetInnerHTML={{ __html: portal?.local_matrics }} />
             </div>
           </div>
           {/* Middle Section */}
           <div className="w-full lg:w-6/12 order-1 lg:order-2">
+            <div className="mb-2 p-3 py-3 w-full bg-white rounded text-center">
+              <h2 className="text-2xl font-bold">मेरठ रंग: मेरठवासियों की अपनी वेबसाइट (Website) </h2>
+            </div>
             <Subscriber />
             <div className="">
               <div className="mb-2 p-3 py-5 flex justify-center items-center w-full" style={{ backgroundColor: "rgba(0,0,0,0.63)" }}>
@@ -57,24 +61,20 @@ export default function Home() {
                 <Carousel />
                 <TagLists />
               </div>
-              <div className="bg-white p-1 pt-2 m-1 mt-3 ">
-                <h3 className="text-xl font-bold text-center">मेरठ आंकड़े</h3>
+              <div className="bg-white p-1 pt-3 m-1 mt-3 rounded py-4 hover:shadow-lg transition-shadow cursor-pointer">
                 <a href={`https://g2c.prarang.in/ai/${portal?.slug}?lang=hi`} target="_blank">
-                  <img src="https://www.prarang.in/assets/portal/images/matrix-24.jpg" alt="Login" className="w-full" />
+                  <h3 className="text-xl font-bold text-center hover:text-blue-500">मेरठ आंकड़े</h3>
                 </a>
               </div>
               <div className="w-full px-1 mt-3">
                 <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
-
-                  {/* Left Section - Planners */}
                   <div className="w-full ">
                     <div className="py-3 bg-white p-3">
-
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                         {/* Market Planners Card */}
-                        <div className="group relative bg-gradient-to-br from-blue-500 via-blue-400 to-cyan-400  p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
+                        <div className="group relative bg-blue-500 p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
                           {/* Background Animation */}
                           <div className="absolute inset-0 opacity-30">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-3xl opacity-50"></div>
@@ -83,12 +83,12 @@ export default function Home() {
 
                           {/* Content */}
                           <div className="relative z-10">
-                            <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-center mb-6">
                               <div>
-                                <h5 className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">
-                                  बाजार योजना
+                                <h5 className="text-3xl text-center md:text-4xl font-extrabold text-white mb-2 ">
+                                  बाज़ार योजना
                                 </h5>
-                                <p className="text-blue-50 text-sm md:text-base font-medium">बाजार की जानकारी और विश्लेषण</p>
+                                <p className="text-blue-50 text-sm md:text-base font-medium">बाज़ार की जानकारी और विश्लेषण</p>
                               </div>
                             </div>
 
@@ -99,11 +99,11 @@ export default function Home() {
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="text-white font-bold text-base md:text-lg group-hover/link:translate-x-1 transition-transform">
-                                    🇮🇳 भारत बाजार योजना
+                                    🇮🇳 भारत बाज़ार योजना
                                   </span>
                                   <span className="text-white/70 group-hover/link:text-white text-xl transition-all">→</span>
                                 </div>
-                                <p className="text-white/70 text-xs mt-2">भारत बाजार योजनाकार</p>
+                                <p className="text-white/70 text-xs mt-2">भारत बाज़ार योजनाकार</p>
                               </a>
 
                               <a
@@ -112,18 +112,17 @@ export default function Home() {
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="text-white font-bold text-base md:text-lg group-hover/link:translate-x-1 transition-transform">
-                                    🌍 विश्व बाजार योजना
+                                    🌍 विश्व बाज़ार योजना
                                   </span>
                                   <span className="text-white/70 group-hover/link:text-white text-xl transition-all">→</span>
                                 </div>
-                                <p className="text-white/70 text-xs mt-2">विश्व बाजार योजनाकार</p>
+                                <p className="text-white/70 text-xs mt-2">विश्व बाज़ार योजनाकार</p>
                               </a>
                             </div>
                           </div>
                         </div>
-
                         {/* Development Planners Card */}
-                        <div className="group relative bg-gradient-to-br from-green-500 via-emerald-400 to-teal-400  p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
+                        <div className="group relative bg-green-600 p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
                           {/* Background Animation */}
                           <div className="absolute inset-0 opacity-30">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-3xl opacity-50"></div>
@@ -131,12 +130,12 @@ export default function Home() {
                           </div>
                           {/* Content */}
                           <div className="relative z-10">
-                            <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-center mb-6">
                               <div>
-                                <h5 className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">
+                                <h5 className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight text-center">
                                   विकास योजना
                                 </h5>
-                                <p className="text-green-50 text-sm md:text-base font-medium">विकास रणनीति और वृद्धि</p>
+                                <p className="text-green-50 text-sm md:text-base text-center font-medium">विकास रणनीति और वृद्धि</p>
                               </div>
                             </div>
 

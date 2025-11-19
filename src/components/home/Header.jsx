@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Modal from "../ui/Modal";
+import VisitorCounter from "../VisitorCounter";
 
 export default function Header({ data }) {
   const [openMap, setOpenMap] = useState(false);
@@ -10,11 +11,20 @@ export default function Header({ data }) {
 
   return (
     <header className="flex justify-between items-center p-4">
-      <div id="left">
+      <div id="left" className="flex justify-center items-center gap-4">
         {/* logo */}
-        <img src="https://www.prarang.in/assets/images/logo2x.png" alt="Login" className="w-24 md:w-32" />
+        <img src="https://i.ibb.co/ZzN35wW5/prarang-light-logo.png" alt="Login" className="w-24 md:w-32" />
+        <div className="">
+          <VisitorCounter />
+        </div>
       </div>
-      <div id="right">
+      <div id="right" className="flex justify-around items-center gap-4">
+        <div className="p-3 bg-black-500/10 border rounded text-white">
+          <div>
+            <h3 className="font-bold text-lg">सब्सक्राइबर: {data?.subscribers}  </h3>
+            <h3 className="font-bold text-lg">मासिक इम्प्रेशन: 3 </h3>
+          </div>
+        </div>
         <button
           className="theme-btn font-bold py-2 px-4 rounded"
           onClick={() => setOpenMap(true)}

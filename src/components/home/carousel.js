@@ -47,7 +47,7 @@ export default function Carousel() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data, error } = await api.get("/daily-posts/list",  { client: "prarang",params: {'language': 'hi', location: 'c2', per_page: 10 } });
+        const { data, error } = await api.get("/daily-posts/list", { client: "prarang", params: { 'language': 'hi', location: 'c2', per_page: 10 } });
 
         if (error) {
           console.error("Error fetching posts:", error);
@@ -203,7 +203,7 @@ export default function Carousel() {
             <div className="">
               <div className="text-lg font-semibold">{modalPost.title}</div>
               {modalPost.createdDate && <div className="text-xs text-gray-500">{modalPost.createdDate}</div>}
-               <div className="text-sm text-black text-start">{modalPost.category}</div>
+              <div className="text-sm text-black text-start">{modalPost.category}</div>
             </div>
           </div>
         ) : null}
@@ -227,8 +227,8 @@ export default function Carousel() {
         ) : null}
       </Modal>
 
-                      {/* Action Buttons */}
-                      {/* <div className="grid grid-cols-2 gap-10 px-4">
+      {/* Action Buttons */}
+      {/* <div className="grid grid-cols-2 gap-10 px-4">
                         <a
                           href='/posts'
                           className="bg-gradient-to-r from-blue-700 to-blue-400 text-white font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 text-center py-2 px-3 text-sm rounded-lg"
@@ -243,10 +243,10 @@ export default function Carousel() {
                        सब्सक्राइब करें
                         </button>
                       </div> */}
-                      <SubscriptionModal
-            isOpen={isSubscriptionModalOpen}
-            onClose={() => setIsSubscriptionModalOpen(false)}
-          />
+      <SubscriptionModal
+        isOpen={isSubscriptionModalOpen}
+        onClose={() => setIsSubscriptionModalOpen(false)}
+      />
     </section>
   );
 }
@@ -259,11 +259,11 @@ function CarouselCard({ post, width, onClick, isMobile = false }) {
       style={{ width }}
       {...(isMobile
         ? {
-            role: 'button',
-            tabIndex: 0,
-            onClick: onClick,
-            onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); }
-          }
+          role: 'button',
+          tabIndex: 0,
+          onClick: onClick,
+          onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); }
+        }
         : {})}
     >
       <img
@@ -307,11 +307,10 @@ function CarouselControls({ posts, activeDotIndex, isTransitioning, onPrev, onNe
           <button
             key={i}
             onClick={() => onDotClick(i)}
-            className={`transition-all duration-300 rounded-full ${
-              i === activeDotIndex
-                ? "w-6 h-1.5 bg-white"
-                : "w-1.5 h-1.5 bg-white hover:bg-white/75"
-            }`}
+            className={`transition-all duration-300 rounded-full ${i === activeDotIndex
+              ? "w-6 h-1.5 bg-white"
+              : "w-1.5 h-1.5 bg-white hover:bg-white/75"
+              }`}
             aria-label={`स्लाइड ${i + 1} पर जाएं`}
           />
         ))}
@@ -329,7 +328,7 @@ function CarouselControls({ posts, activeDotIndex, isTransitioning, onPrev, onNe
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <button2
+        <button
           onClick={onNext}
           disabled={isTransitioning}
           className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -338,7 +337,7 @@ function CarouselControls({ posts, activeDotIndex, isTransitioning, onPrev, onNe
           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </button2>
+        </button>
       </div>
     </div>
 

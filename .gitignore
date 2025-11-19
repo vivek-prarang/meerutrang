@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+# Visitor Counter Database
+/data/
+data/visitors.db
+data/visitors.db-shm
+data/visitors.db-wal
