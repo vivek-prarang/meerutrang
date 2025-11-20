@@ -11,10 +11,16 @@ import WeatherWidget from "@/components/home/WeatherWidget";
 import Subscriber from "@/components/home/Subscriber";
 import NewsFeed from "@/components/home/NewsFeed";
 import SubscriptionModal from "@/components/SubscriptionModal";
+import SocialMediaStrip from "@/components/SocialMediaStrip";
+import AdSpace from "@/components/AdSpace";
+import Modal from "@/components/ui/Modal";
+import CirusData from "@/components/CirusData";
+import InternateData from "@/components/InternateData";
 
 export default function Home() {
   // const [portal, setPortal] = useState(null);
   const [portal, setPortal] = useState(null);
+  const [openMap, setOpenMap] = useState(false);
 
   useEffect(() => {
     const fetchPortal = async () => {
@@ -29,25 +35,36 @@ export default function Home() {
     fetchPortal();
   }, []);
 
+
+
+
+  const mapHtml = portal?.map_link ?? "<p>मानचित्र उपलब्ध नहीं है।</p>";
   return (
     <main className="min-h-screen w-full bg-cover bg-no-repeat bg-center home-bg" style={{ backgroundImage: `url(${portal?.image_base + portal?.header_image})` }}>
-      <Header data={portal} />
+      <Header />
       <section className="w-full px-4 py-6">
         <div className="container mx-auto flex flex-col lg:flex-row gap-6">
           {/* Left Side */}
           <div className="w-full lg:w-3/12 bg-white/10 rounded-md order-2 lg:order-1">
             <Nav />
+
             <div className="bg-white  rounded p-3 mb-3">
+              <div className="py-1 mb-2 text-xl font-bold border-b-1"><i className="fas fa-newspaper"></i> मेरठ के समाचार</div>
+              <NewsFeed />
+            </div>
+            <div className="bg-white  rounded p-3 ">
               <div className="py-1 mb-2 text-xl font-bold border-b-1  "><i className="fas fa-location"></i> स्थानीय जानकारी</div>
               <div className="" dangerouslySetInnerHTML={{ __html: portal?.local_matrics }} />
             </div>
-            <div className="bg-white  rounded p-3">
-              <div className="py-1 mb-2 text-xl font-bold border-b-1"><i className="fas fa-newspaper"></i> मेरठ का समाचार</div>
-              <NewsFeed />
-            </div>
+            <br />
+            {/* <AdSpace
+              title="विज्ञापन स्थान 2"
+              size="medium"
+              subtext="" /> */}
           </div>
           {/* Middle Section */}
           <div className="w-full lg:w-6/12 order-1 lg:order-2">
+
             <Subscriber />
             <div className="">
               <div className="mb-2 p-3 py-5 flex justify-center items-center w-full" style={{ backgroundColor: "rgba(0,0,0,0.63)" }}>
@@ -57,24 +74,20 @@ export default function Home() {
                 <Carousel />
                 <TagLists />
               </div>
-              <div className="bg-white p-1 pt-2 m-1 mt-3 ">
-                <h3 className="text-xl font-bold text-center">मेरठ आंकड़े</h3>
+              <div className="bg-white p-1 pt-3 m-1 mt-3 rounded py-4 hover:shadow-lg transition-shadow cursor-pointer">
                 <a href={`https://g2c.prarang.in/ai/${portal?.slug}?lang=hi`} target="_blank">
-                  <img src="https://www.prarang.in/assets/portal/images/matrix-24.jpg" alt="Login" className="w-full" />
+                  <h3 className="text-xl font-bold text-center hover:text-blue-500"> मेरठ के आंकड़े </h3>
                 </a>
               </div>
               <div className="w-full px-1 mt-3">
                 <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
-
-                  {/* Left Section - Planners */}
                   <div className="w-full ">
                     <div className="py-3 bg-white p-3">
-
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                         {/* Market Planners Card */}
-                        <div className="group relative bg-gradient-to-br from-blue-500 via-blue-400 to-cyan-400  p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
+                        <div className="group relative bg-blue-500 p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
                           {/* Background Animation */}
                           <div className="absolute inset-0 opacity-30">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-3xl opacity-50"></div>
@@ -83,12 +96,12 @@ export default function Home() {
 
                           {/* Content */}
                           <div className="relative z-10">
-                            <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-center mb-6">
                               <div>
-                                <h5 className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">
-                                  बाजार योजना
+                                <h5 className="text-3xl text-center md:text-4xl font-extrabold text-white mb-2 ">
+                                  बिज़नेस का यंत्र
                                 </h5>
-                                <p className="text-blue-50 text-sm md:text-base font-medium">बाजार की जानकारी और विश्लेषण</p>
+                                <p className="text-blue-50 text-sm md:text-base font-medium text-center">अपने बिज़नेस के लिए नए अवसर खोजें</p>
                               </div>
                             </div>
 
@@ -98,12 +111,12 @@ export default function Home() {
                                 className="block p-4 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all duration-300 group/link border border-white/30 hover:border-white/50"
                               >
                                 <div className="flex items-center justify-between">
-                                  <span className="text-white font-bold text-base md:text-lg group-hover/link:translate-x-1 transition-transform">
-                                    🇮🇳 भारत बाजार योजना
+                                  <span className="text-white font-bold text-base md:text-lg group-hover/link:translate-x-1 transition-transform ">
+                                    भारत में नए अवसर खोजें
                                   </span>
                                   <span className="text-white/70 group-hover/link:text-white text-xl transition-all">→</span>
                                 </div>
-                                <p className="text-white/70 text-xs mt-2">भारत बाजार योजनाकार</p>
+                                <small>(शहरों का चयन करें)</small>
                               </a>
 
                               <a
@@ -112,18 +125,17 @@ export default function Home() {
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="text-white font-bold text-base md:text-lg group-hover/link:translate-x-1 transition-transform">
-                                    🌍 विश्व बाजार योजना
+                                    विश्व में नए अवसर खोजें
                                   </span>
                                   <span className="text-white/70 group-hover/link:text-white text-xl transition-all">→</span>
                                 </div>
-                                <p className="text-white/70 text-xs mt-2">विश्व बाजार योजनाकार</p>
+                                <small>(देशों का चयन करें)</small>
                               </a>
                             </div>
                           </div>
                         </div>
-
                         {/* Development Planners Card */}
-                        <div className="group relative bg-gradient-to-br from-green-500 via-emerald-400 to-teal-400  p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
+                        <div className="group relative bg-green-600 p-8 shadow-xl hover:shadow-2xl transition-all duration-500  overflow-hidden">
                           {/* Background Animation */}
                           <div className="absolute inset-0 opacity-30">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-3xl opacity-50"></div>
@@ -131,12 +143,12 @@ export default function Home() {
                           </div>
                           {/* Content */}
                           <div className="relative z-10">
-                            <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-center mb-6">
                               <div>
-                                <h5 className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">
-                                  विकास योजना
+                                <h5 className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight text-center">
+                                  विकास का यंत्र
                                 </h5>
-                                <p className="text-green-50 text-sm md:text-base font-medium">विकास रणनीति और वृद्धि</p>
+                                <p className="text-green-50 text-sm md:text-base text-center font-medium">अपने शहर/देश की प्रगति की तुलना करें </p>
                               </div>
                             </div>
 
@@ -147,11 +159,11 @@ export default function Home() {
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="text-white font-bold text-base md:text-lg group-hover/link:translate-x-1 transition-transform">
-                                    🇮🇳 भारत विकास योजना
+                                    भारत में विकास की तुलना
                                   </span>
                                   <span className="text-white/70 group-hover/link:text-white text-xl transition-all">→</span>
                                 </div>
-                                <p className="text-white/70 text-xs mt-2">भारत विकास योजनाकार</p>
+                                <small>(शहरों का चयन करें)</small>
                               </a>
 
                               <a
@@ -160,11 +172,11 @@ export default function Home() {
                               >
                                 <div className="flex items-center justify-between">
                                   <span className="text-white font-bold text-base md:text-lg group-hover/link:translate-x-1 transition-transform">
-                                    🌍 विश्व विकास योजना
+                                    विश्व में विकास की तुलना
                                   </span>
                                   <span className="text-white/70 group-hover/link:text-white text-xl transition-all">→</span>
                                 </div>
-                                <p className="text-white/70 text-xs mt-2">विश्व विकास योजनाकार</p>
+                                <small>(देशों का चयन करें)</small>
                               </a>
                             </div>
 
@@ -180,11 +192,26 @@ export default function Home() {
           </div>
           {/* Right Side */}
           <div className="w-full lg:w-3/12 order-3 lg:order-3">
-
+            <InternateData />
+            <CirusData />
+            <br />
+            <SocialMediaStrip />
             <div className="p-3 flex items-center justify-items-center  bg-weth">
               <WeatherWidget className="w-full" code={portal?.weather_widget_code} />
             </div>
+            <button
+              className="theme-btn font-bold py-2 px-4 mt-2 w-full"
+              onClick={() => setOpenMap(true)}
+            >
+              <i className="fas fa-map mr-2"></i> शहर का नक्शा
+            </button>
 
+
+
+            {/* <AdSpace
+              title="विज्ञापन स्थान 1"
+              size="large"
+              subtext="" /> */}
             <div className=" p-1 m-1 mt-3 ">
               <a href={`https://prarang.in/yp/meerut`} target="_blank">
                 <img src="https://www.prarang.in/assets/images/yellowpages.jpg" alt="Login" className="h-[420px] w-full" />
@@ -192,7 +219,15 @@ export default function Home() {
             </div>
           </div>
         </div>
+
       </section>
+      <section className="px-3 container mx-auto mb-2">
+        {/* <AdSpace
+          title="विज्ञापन स्थान 3"
+          size="small"
+          subtext="" /> */}
+      </section>
+
       <footer className="bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white py-12 px-4 relative overflow-hidden" style={{ backgroundImage: `url('${portal?.image_base}${portal?.footer_image}')` }}>
         {/* Background overlay for image */}
         <div className="absolute inset-0 bg-black/50"></div>
@@ -245,8 +280,29 @@ export default function Home() {
             <p className="text-sm opacity-75">&copy; 2025 प्रारंग. All rights reserved.</p>
           </div>
         </div>
+
       </footer>
       <SubscriptionModal />
-    </main>
+      {/* MODAL */}
+      <Modal
+        className="max-w-5xl min-h-[100vh]"
+        open={openMap}
+        onClose={() => setOpenMap(false)}
+        ariaLabel="city-map"
+        fullWidth={true}
+        header={
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold">शहर का नक्शा</h3>
+          </div>
+        }
+      >
+        <div className="w-full h-full">
+          <div
+            className="w-full h-full"
+            dangerouslySetInnerHTML={{ __html: mapHtml }}
+          />
+        </div>
+      </Modal>
+    </main >
   );
 }

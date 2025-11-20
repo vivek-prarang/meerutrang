@@ -156,9 +156,8 @@ export default function SubscriptionModal({ isOpen, onClose }) {
       newErrors.mobile = "कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें";
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "कृपया अपना ईमेल दर्ज करें";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    // Email is optional
+    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "कृपया वैध ईमेल दर्ज करें";
     }
 
@@ -293,10 +292,10 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">
-                  सफलतापूर्वक सब्सक्राइब किया गया!
+                  आपका सब्सक्रिप्शन पूरा हो गया है।
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  {formData.name || "आप"}, आपको जल्द ही अपडेट मिलने लगेंगे।
+                  आपको बहुत जल्द अपडेट मिलने शुरू हो जाएंगे।
                 </p>
                 <div className="w-12 h-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mx-auto"></div>
               </div>
@@ -310,7 +309,7 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                     href="https://www.indusappstore.com/apps/news-and-magazines/prarang/com.riversanskiriti.prarang?page=details&id=com.riversanskiriti.prarang"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-red-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="Indus App Store पर फॉलो करें"
                   >
                     <i className="fab fa-instagram text-lg"></i>
@@ -318,24 +317,14 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                   </a>
 
 
-                  {/* Instagram */}
-                  <a
-                    href="https://www.instagram.com/prarang_meerut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
-                    title="Instagram पर फॉलो करें"
-                  >
-                    <i className="fab fa-instagram text-lg"></i>
-                    <span>Instagram</span>
-                  </a>
+
 
                   {/* WhatsApp */}
                   <a
                     href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-green-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="WhatsApp ग्रुप ज्वाइन करें"
                   >
                     <i className="fab fa-whatsapp text-lg"></i>
@@ -355,7 +344,7 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                   </a> */}
 
                   {/* ShareChat */}
-                  <a
+                  {/* <a
                     href="https://sharechat.com/profile/prarang_meerut"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -364,7 +353,7 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                   >
                     <i className="fab fa-share-alt text-lg"></i>
                     <span>ShareChat</span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
 
@@ -441,7 +430,7 @@ export default function SubscriptionModal({ isOpen, onClose }) {
               {/* Email Field */}
               <div>
                 <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-                  ईमेल <span className="text-red-500">*</span>
+                  ईमेल <span className="text-gray-400 text-xs">(वैकल्पिक)</span>
                 </label>
                 <input
                   type="email"
@@ -568,14 +557,14 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                     href="https://www.indusappstore.com/apps/news-and-magazines/prarang/com.riversanskiriti.prarang?page=details&id=com.riversanskiriti.prarang"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full  bg-red-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="Indus App Store पर फॉलो करें"
                   >
                     <i className="fab fa-google-play text-lg"></i>
                     <span>Mobile App</span>
                   </a>
                   {/* Instagram */}
-                  <a
+                  {/* <a
                     href="https://www.instagram.com/prarang_meerut"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -584,14 +573,14 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                   >
                     <i className="fab fa-instagram text-lg"></i>
                     <span>Instagram</span>
-                  </a>
+                  </a> */}
 
                   {/* WhatsApp */}
                   <a
                     href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-green-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="WhatsApp ग्रुप ज्वाइन करें"
                   >
                     <i className="fab fa-whatsapp text-lg"></i>
@@ -611,7 +600,7 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                   </a> */}
 
                   {/* ShareChat */}
-                  <a
+                  {/* <a
                     href="https://sharechat.com/profile/prarang_meerut"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -620,7 +609,7 @@ export default function SubscriptionModal({ isOpen, onClose }) {
                   >
                     <i className="fas fa-share-alt text-lg"></i>
                     <span>ShareChat</span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </form>
