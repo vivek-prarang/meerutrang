@@ -36,6 +36,18 @@ function SubscriptionModal({ router }) {
     setIsModalOpen(true);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   // Fetch cities from API
   useEffect(() => {
     const fetchCities = async () => {
@@ -95,15 +107,7 @@ function SubscriptionModal({ router }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Filter cities based on search term
-  const filteredCities = cities.filter((city) => {
-    const search = searchTerm.toLowerCase();
-    return (
-      city.name.toLowerCase().includes(search) ||
-      city.englishName.toLowerCase().includes(search) ||
-      city.state.toLowerCase().includes(search)
-    );
-  });
+
 
   const validateForm = () => {
     const newErrors = {};
@@ -122,6 +126,7 @@ function SubscriptionModal({ router }) {
       newErrors.mobile = "कृपया वैध 10 अंकों का मोबाइल नंबर दर्ज करें";
     }
 
+    // Email is optional
     if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "कृपया वैध ईमेल दर्ज करें";
     }
@@ -245,16 +250,16 @@ function SubscriptionModal({ router }) {
           {isSubmitted ? (
             <div className="space-y-6">
               <div className="text-center py-8">
-                <div className="mb-6 inline-flex p-5 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full shadow-lg animate-bounce">
-                  <svg className="w-16 h-16 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
+                <div className="mb-6 inline-flex p-5 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full shadow-lg">
+                  <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">
-                  सफलतापूर्वक सब्सक्राइब किया गया!
+                  आपका सब्सक्रिप्शन पूरा हो गया है।
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  {formData.name || "आप"}, आपको जल्द ही अपडेट मिलने लगेंगे।
+                  आपको बहुत जल्द अपडेट मिलने शुरू हो जाएंगे।
                 </p>
                 <div className="w-12 h-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mx-auto"></div>
               </div>
@@ -263,67 +268,38 @@ function SubscriptionModal({ router }) {
               <div className="border-t-2 border-gray-200 pt-6">
                 <p className="text-center text-sm font-bold text-gray-700 uppercase tracking-wider mb-6">हमें फॉलो करें</p>
                 <div className="grid grid-cols-2 gap-4">
+                  {/* Instagram */}
                   <a
                     href="https://www.indusappstore.com/apps/news-and-magazines/prarang/com.riversanskiriti.prarang?page=details&id=com.riversanskiriti.prarang"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-red-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="Indus App Store पर फॉलो करें"
                   >
-                    <i className="fab fa-google-play text-lg"></i>
+                    <i className="fab fa-instagram text-lg"></i>
                     <span>Mobile App</span>
                   </a>
 
-                  <a
-                    href="https://www.instagram.com/prarang_meerut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
-                    title="Instagram पर फॉलो करें"
-                  >
-                    <i className="fab fa-instagram text-lg"></i>
-                    <span>Instagram</span>
-                  </a>
+                  {/* WhatsApp */}
                   <a
                     href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-green-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="WhatsApp ग्रुप ज्वाइन करें"
                   >
                     <i className="fab fa-whatsapp text-lg"></i>
                     <span>WhatsApp</span>
                   </a>
-
-                  {/* <a
-                    href="https://twitter.com/prarang_in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
-                    title="Twitter पर फॉलो करें"
-                  >
-                    <i className="fab fa-twitter text-lg"></i>
-                    <span>Twitter</span>
-                  </a> */}
-
-                  <a
-                    href="https://sharechat.com/profile/prarang_meerut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
-                    title="ShareChat पर फॉलो करें"
-                  >
-                    <i className="fab fa-share-alt text-lg"></i>
-                    <span>ShareChat</span>
-                  </a>
                 </div>
               </div>
 
+              {/* Close Button */}
               <button
                 onClick={() => router.push("/")}
                 className="w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
               >
-                ठीक है
+                बंद करें
               </button>
             </div>
           ) : (
@@ -391,7 +367,7 @@ function SubscriptionModal({ router }) {
               {/* Email Field */}
               <div>
                 <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-                  ईमेल
+                  ईमेल <span className="text-gray-400 text-xs">(वैकल्पिक)</span>
                 </label>
                 <input
                   type="email"
@@ -517,13 +493,14 @@ function SubscriptionModal({ router }) {
                     href="https://www.indusappstore.com/apps/news-and-magazines/prarang/com.riversanskiriti.prarang?page=details&id=com.riversanskiriti.prarang"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full  bg-red-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="Indus App Store पर फॉलो करें"
                   >
                     <i className="fab fa-google-play text-lg"></i>
                     <span>Mobile App</span>
                   </a>
-                  <a
+                  {/* Instagram */}
+                  {/* <a
                     href="https://www.instagram.com/prarang_meerut"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -532,19 +509,21 @@ function SubscriptionModal({ router }) {
                   >
                     <i className="fab fa-instagram text-lg"></i>
                     <span>Instagram</span>
-                  </a>
+                  </a> */}
 
+                  {/* WhatsApp */}
                   <a
                     href="https://chat.whatsapp.com/HpjFX0qe7Du7q9fi3DQR7P"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-green-700 text-white shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 font-medium text-sm"
                     title="WhatsApp ग्रुप ज्वाइन करें"
                   >
                     <i className="fab fa-whatsapp text-lg"></i>
                     <span>WhatsApp</span>
                   </a>
 
+                  {/* Twitter */}
                   {/* <a
                     href="https://twitter.com/prarang_in"
                     target="_blank"
@@ -556,7 +535,8 @@ function SubscriptionModal({ router }) {
                     <span>Twitter</span>
                   </a> */}
 
-                  <a
+                  {/* ShareChat */}
+                  {/* <a
                     href="https://sharechat.com/profile/prarang_meerut"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -565,7 +545,7 @@ function SubscriptionModal({ router }) {
                   >
                     <i className="fas fa-share-alt text-lg"></i>
                     <span>ShareChat</span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </form>

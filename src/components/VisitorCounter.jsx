@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { fetchTodayVisitors } from '@/lib/useVisitorTracker';
+import WeatherWidget from './home/WeatherWidget';
 
 export default function VisitorCounter() {
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [pageVisitors, setPageVisitors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [indianTime, setIndianTime] = useState('');
+  const [indianDate, setIndianDate] = useState('');
 
   useEffect(() => {
     const loadVisitors = async () => {
@@ -38,7 +40,15 @@ export default function VisitorCounter() {
         second: '2-digit',
         hour12: true
       });
+      const indianDateString = now.toLocaleString('hi-IN', {
+        timeZone: 'Asia/Kolkata',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
       setIndianTime(indianTimeString);
+      setIndianDate(indianDateString);
     };
 
     updateTime();
@@ -50,21 +60,16 @@ export default function VisitorCounter() {
     };
   }, []);
   return (
-    <div className=" bg-black-500/10 border rounded p-3 justify-center text-center text-white">
+    <div className=" bg-black border rounded p-3 justify-center text-center text-white">
       <div className="flex flex-col items-start justify-between gap-1">
         <div className="text-left">
-          {/* <p className="text-xs uppercase tracking-widest text-gray-300 m-0 mb-1">
-            भारतीय समय
-          </p> */}
-          <p className=" font-mono font-bold text-white">
-            समय {indianTime}
+          <p className="  text-center">मेरठ का समय </p>
+          <p className=" font-mono  text-white">
+            <i className="fas fa-clock "></i> {indianTime}
           </p>
-        </div>
-        <div className='flex'>
-          <p className="text-lg uppercase tracking-widest text-blue-100 m-0">
-
+          <p className="text-xs text-gray-300 mt-1">
+            <i className="fas fa-calendar font-bold "></i> {indianDate}
           </p>
-          <p className=" font-bold"> आज के विज़िटर: {new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(totalVisitors)}</p>
         </div>
 
       </div>

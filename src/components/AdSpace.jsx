@@ -3,11 +3,11 @@
 import React from "react";
 
 export default function AdSpace({
-  title = "विज्ञापन स्थान",
+  title = "विज्ञापन स्थान स्थान",
   size = "medium",
-  subtext = "आपके विज्ञापन यहाँ प्रदर्शित होंगे",
+  subtext = "आपके विज्ञापन स्थान यहाँ प्रदर्शित होंगे",
   bgColor = "from-blue-50 to-indigo-50",
-  borderColor = "border-blue-200",
+  borderColor = "border-blue-300",
   accentColor = "from-blue-400 to-indigo-500",
 }) {
   // Define size configurations
@@ -39,22 +39,21 @@ export default function AdSpace({
 
   return (
     <div
-      className={`${config.height} w-full rounded-2xl border-2 ${borderColor} bg-linear-to-br ${bgColor}
-                   ${config.padding} flex flex-col items-center justify-center relative overflow-hidden
-                   hover:shadow-lg transition-all duration-300 cursor-pointer group`}
+      className={`${config.height} w-full cursor-pointer  rounded border-2 ${borderColor} bg-linear-to-br ${bgColor}
+                   ${config.padding} flex flex-col items-center justify-center relative overflow-hidden shadow-sm`}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-blue-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-indigo-400 rounded-full blur-2xl"></div>
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 right-0 w-40 h-40 bg-linear-to-br from-blue-400 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-linear-to-tr from-indigo-400 rounded-full blur-2xl"></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 text-center space-y-3">
         {/* Icon */}
-        <div className={`${config.iconSize} mx-auto relative group/icon`}>
-          <div className={`absolute inset-0 bg-linear-to-r ${accentColor} rounded-full opacity-20 blur-lg group-hover/icon:opacity-30 transition-opacity`}></div>
-          <div className={`relative w-full h-full rounded-full bg-linear-to-r ${accentColor} flex items-center justify-center shadow-lg`}>
+        <div className={`${config.iconSize} mx-auto relative`}>
+          <div className={`absolute inset-0 bg-linear-to-r ${accentColor} rounded-full opacity-15 blur-lg`}></div>
+          <div className={`relative w-full h-full rounded-full bg-linear-to-r ${accentColor} flex items-center justify-center shadow-md`}>
             <svg
               className="w-1/2 h-1/2 text-white"
               fill="none"
@@ -72,23 +71,15 @@ export default function AdSpace({
         </div>
 
         {/* Title */}
-        <h3
-          className={`${config.titleSize} font-bold text-gray-800 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:${accentColor} group-hover:bg-clip-text transition-all`}
-        >
+        <h3 className={`${config.titleSize} font-bold text-gray-800`}>
           {title}
         </h3>
 
         {/* Subtext */}
-        <p className={`${config.subtextSize} text-gray-600 font-medium max-w-xs group-hover:text-gray-700 transition-colors`}>
+        <p className={`${config.subtextSize} text-gray-600 font-medium max-w-xs`}>
           {subtext}
         </p>
-
-        {/* CTA Button */}
-
       </div>
-
-      {/* Hover effect border */}
-      <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-blue-300 transition-colors"></div>
     </div>
   );
 }

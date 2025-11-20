@@ -5,6 +5,7 @@ import api from "../../lib/api";
 import Modal from "../ui/Modal";
 import Heading from "../ui/Heading";
 import SubscriptionModal from "../SubscriptionModal";
+import AdSpace from "../AdSpace";
 
 // Constants
 const AUTOPLAY_DELAY = 3000;
@@ -220,6 +221,10 @@ export default function Carousel() {
               <img src={modalPost.image} alt={modalPost.title} className="w-full object-cover rounded" />
             )}
 
+            {/* <AdSpace
+              title="विज्ञापन स्थान 4"
+              size="small"
+              subtext="" /> */}
             <div className="prose prose-sm text-gray-900 max-w-none text-justify">
               <div dangerouslySetInnerHTML={{ __html: modalPost.description || modalPost.excerpt || "" }} />
             </div>
@@ -271,6 +276,7 @@ function CarouselCard({ post, width, onClick, isMobile = false }) {
         alt={post.title}
         className="w-full h-full object-cover"
       />
+
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
 
       <div className="absolute bottom-0 left-0 right-0 p-3">

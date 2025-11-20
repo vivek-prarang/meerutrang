@@ -58,6 +58,10 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-13T8TW92E9');
           `}
         </script>
+        <style>
+          @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300,400,500,600,700&display=swap");
+
+        </style>
       </head>
       <body
         className="min-h-screen flex flex-col  bg-linear-to-r from-gray-100 via-gray-100 to-purple-50" >
