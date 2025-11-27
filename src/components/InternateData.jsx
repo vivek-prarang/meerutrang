@@ -84,10 +84,14 @@ export default function InternateData() {
 
 `}
       </style>
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold text-gray-800">मेरठ का इंटरनेट गणित </h3>
+      <div className="flex justify-center items-center mb-1 items-center">
+        <h3 className="text-lg font-semibold text-gray-800 text-center">मेरठ का इंटरनेट गणित </h3>
       </div>
-
+      <p className="text-end mb-3">
+        <small>
+          नवीनतम अपडेट : {new Intl.DateTimeFormat('hi-IN', { month: 'long' }).format(new Date(Date.now() - 1000 * 60 * 60 * 24 * 30))} {new Intl.DateTimeFormat('hi-IN', { year: 'numeric' }).format(new Date(Date.now() - 1000 * 60 * 60 * 24 * 30))}
+        </small>
+      </p>
       {internateData ? (
         <div className="space-y-3">
           {/* Data Table */}
@@ -126,8 +130,8 @@ export default function InternateData() {
                 case 18:
                   categoryLabel = 'ट्विटर उपयोगकर्ता';
                   categoryColor = 'bg-sky-50 border-sky-200';
-                  icon = 'fab fa-twitter';
-                  iconColor = 'text-sky-500';
+                  icon = 'fab fa-x-twitter';
+                  iconColor = 'text-dark';
                   break;
                 default:
                   categoryLabel = city.title;
@@ -153,6 +157,15 @@ export default function InternateData() {
       ) : (
         <div className="text-center text-gray-500 py-8">कोई डेटा उपलब्ध नहीं</div>
       )}
-    </div>
+      <div className="p-1 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <i className="fab fa-instagram text-xl text-pink-600"></i>
+          <span className="text-base text-sm font-semibold text-gray-800">इंस्टाग्राम उपयोगकर्ता</span>
+        </div>
+        <div className="text-right">
+          <span className="text-sm font-bold text-gray-900">{Number(348900).toLocaleString('en-IN') || '-'}</span>
+        </div>
+      </div>
+    </div >
   );
 }

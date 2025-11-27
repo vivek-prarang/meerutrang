@@ -16,6 +16,7 @@ import AdSpace from "@/components/AdSpace";
 import Modal from "@/components/ui/Modal";
 import CirusData from "@/components/CirusData";
 import InternateData from "@/components/InternateData";
+import MeerutLinks from "@/components/home/MeerutLinks";
 
 export default function Home() {
   // const [portal, setPortal] = useState(null);
@@ -56,7 +57,11 @@ export default function Home() {
               <div className="py-1 mb-2 text-xl font-bold border-b-1  "><i className="fas fa-location"></i> स्थानीय जानकारी</div>
               <div className="" dangerouslySetInnerHTML={{ __html: portal?.local_matrics }} />
             </div>
-            <br />
+
+            {/* Meerut Links */}
+            <div className="w-full mt-3 bg-white p-1  shadow">
+              <MeerutLinks data={portal} />
+            </div>
             {/* <AdSpace
               title="विज्ञापन स्थान 2"
               size="medium"
@@ -182,12 +187,12 @@ export default function Home() {
 
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           {/* Right Side */}

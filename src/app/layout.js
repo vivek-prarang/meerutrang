@@ -1,6 +1,5 @@
 
 import "./globals.css";
-import VisitorTracker from "@/components/VisitorTracker";
 
 export const metadata = {
   metadataBase: new URL("https://मेरठरंग.भारत"),
@@ -65,7 +64,7 @@ export default function RootLayout({ children }) {
       </head>
       <body
         className="min-h-screen flex flex-col  bg-linear-to-r from-gray-100 via-gray-100 to-purple-50" >
-        <VisitorTracker />
+
         {children}
       </body>
     </html>
