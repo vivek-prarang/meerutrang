@@ -59,9 +59,6 @@ export default function MeerutLinks({ data }) {
     ],
     "मनोरंजन": [
       { "name": "BookMyShow – मूवीज़ व इवेंट", "url": "https://in.bookmyshow.com/explore/home/meerut" }
-    ],
-    "खेल": [
-      { "name": "Cricbuzz", "url": "https://www.cricbuzz.com/" }
     ]
   };
   const openModal = (type) => setActiveModal(type);
@@ -92,7 +89,7 @@ export default function MeerutLinks({ data }) {
       {/* Main Content */}
       <div className="relative z-10">
         <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 font-size-responsive">
-          शहर का ज्ञानकोष - किताबें और वेबसाइट
+          शहर का ज्ञानकोष
         </h2>
 
         {/* Buttons */}
@@ -130,20 +127,32 @@ export default function MeerutLinks({ data }) {
         <div className="fixed inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col transform animate-in zoom-in-95 duration-300">
             {/* Modal Header */}
-            <div className="px-8 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-t-2xl flex justify-between items-center flex-shrink-0">
-              <div className="flex items-center gap-3">
+            <div className="px-8 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-t-2xl flex items-center justify-between flex-shrink-0 relative">
+
+              {/* Left Section (Icon + Hidden placeholder to balance center text) */}
+              <div className="flex items-center gap-3 w-1/3">
                 <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
                   <i className="fas fa-book text-white text-lg"></i>
                 </div>
-                <h3 className="text-2xl font-bold text-white drop-shadow-md">मेरठ की किताबें</h3>
               </div>
-              <button
-                onClick={closeModal}
-                className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg text-white transition-all duration-200 hover:rotate-90 flex items-center justify-center backdrop-blur-sm"
-              >
-                <i className="fas fa-times text-lg"></i>
-              </button>
+
+              {/* Center Title */}
+              <h3 className="text-2xl font-bold text-white drop-shadow-md text-center w-1/3">
+                मेरठ की किताबें
+              </h3>
+
+              {/* Right Close Button */}
+              <div className="flex justify-end w-1/3">
+                <button
+                  onClick={closeModal}
+                  className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg text-white transition-all duration-200 hover:rotate-90 flex items-center justify-center backdrop-blur-sm"
+                >
+                  <i className="fas fa-times text-lg"></i>
+                </button>
+              </div>
+
             </div>
+
 
             {/* Modal Content */}
             <div className="px-8 py-6 overflow-y-auto flex-1 custom-scrollbar">
@@ -183,10 +192,10 @@ export default function MeerutLinks({ data }) {
                   {/* Physical Books Section */}
                   {books.length > 0 && (
                     <div>
-                      <h4 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">प्रकाशित किताबें</h4>
+                      {/* <h4 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">प्रकाशित किताबें</h4> */}
                       <div className="space-y-3">
                         {books.map((book, index) => (
-                          <div key={index} className="bg-white/50 backdrop-blur-sm rounded-lg p-1 border border-gray-100 hover:bg-white/80 transition-all duration-200">
+                          <div key={index} className="bg-white/50 backdrop-blur-sm rounded-lg p-4 border border-gray-100 hover:bg-white/80 transition-all duration-200">
                             <h5 className="font-bold text-base text-gray-800 mb-3">{index + 1}. {book.name}</h5>
                             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-600">
                               {book.author && <span><span className="font-semibold">Writer:</span> {book.author}</span>}
@@ -230,20 +239,32 @@ export default function MeerutLinks({ data }) {
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col transform animate-in zoom-in-95 duration-300">
 
             {/* Header */}
-            <div className="px-8 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-t-2xl flex justify-between items-center flex-shrink-0">
-              <div className="flex items-center gap-3">
+            <div className="px-8 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-t-2xl flex items-center justify-between flex-shrink-0 relative">
+
+              {/* Left Section (Icon + Hidden placeholder to balance center text) */}
+              <div className="flex items-center gap-3 w-1/3">
                 <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                  <i className="fas fa-link text-white text-lg"></i>
+                  <i className="fas fa-book text-white text-lg"></i>
                 </div>
-                <h3 className="text-2xl font-bold text-white drop-shadow-md">मेरठ के उपयोगी वेबसाइट</h3>
               </div>
-              <button
-                onClick={closeModal}
-                className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg text-white transition-all duration-200 hover:rotate-90 flex items-center justify-center backdrop-blur-sm"
-              >
-                <i className="fas fa-times text-lg"></i>
-              </button>
+
+              {/* Center Title */}
+              <h3 className="text-2xl font-bold text-white drop-shadow-md text-center w-1/3">
+                मेरठ की वेबसाइट्स
+              </h3>
+
+              {/* Right Close Button */}
+              <div className="flex justify-end w-1/3">
+                <button
+                  onClick={closeModal}
+                  className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg text-white transition-all duration-200 hover:rotate-90 flex items-center justify-center backdrop-blur-sm"
+                >
+                  <i className="fas fa-times text-lg"></i>
+                </button>
+              </div>
+
             </div>
+
 
             {/* Content */}
             <div className="px-8 py-6 overflow-y-auto flex-1 custom-scrollbar">
