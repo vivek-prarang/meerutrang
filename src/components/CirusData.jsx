@@ -109,7 +109,7 @@ export default function CirusData() {
         <p>अंतिम अपडेट: {new Date().toLocaleDateString('hi-IN')}</p>
       </div> */}
       <div className='flex justify-end items-end mt-2'>
-        <a href="https://prarang.in/cirus" className='text-bold text-blue-800 hover:text-blue-400' target='_blank'>अधिक देखे और समझसे </a>
+        <a href="https://prarang.in/cirus" className='text-bold text-blue-800 hover:text-blue-400' target='_blank'>अधिक देखे और समझे </a>
       </div>
     </div>
   );

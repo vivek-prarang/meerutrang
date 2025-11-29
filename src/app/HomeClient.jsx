@@ -16,6 +16,7 @@ import AdSpace from "@/components/AdSpace";
 import Modal from "@/components/ui/Modal";
 import CirusData from "@/components/CirusData";
 import InternateData from "@/components/InternateData";
+import MeerutLinks from "@/components/home/MeerutLinks";
 
 export default function Home() {
   // const [portal, setPortal] = useState(null);
@@ -36,8 +37,6 @@ export default function Home() {
   }, []);
 
 
-
-
   const mapHtml = portal?.map_link ?? "<p>मानचित्र उपलब्ध नहीं है।</p>";
   return (
     <main className="min-h-screen w-full bg-cover bg-no-repeat bg-center home-bg" style={{ backgroundImage: `url(${portal?.image_base + portal?.header_image})` }}>
@@ -56,7 +55,11 @@ export default function Home() {
               <div className="py-1 mb-2 text-xl font-bold border-b-1  "><i className="fas fa-location"></i> स्थानीय जानकारी</div>
               <div className="" dangerouslySetInnerHTML={{ __html: portal?.local_matrics }} />
             </div>
-            <br />
+
+            {/* Meerut Links */}
+            <div className="w-full mt-3 bg-white p-1  shadow">
+              <MeerutLinks data={portal} />
+            </div>
             {/* <AdSpace
               title="विज्ञापन स्थान 2"
               size="medium"
@@ -182,20 +185,19 @@ export default function Home() {
 
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           {/* Right Side */}
           <div className="w-full lg:w-3/12 order-3 lg:order-3">
+            <SocialMediaStrip />
             <InternateData />
             <CirusData />
-            <br />
-            <SocialMediaStrip />
             <div className="p-3 flex items-center justify-items-center  bg-weth">
               <WeatherWidget className="w-full" code={portal?.weather_widget_code} />
             </div>
@@ -206,12 +208,6 @@ export default function Home() {
               <i className="fas fa-map mr-2"></i> शहर का नक्शा
             </button>
 
-
-
-            {/* <AdSpace
-              title="विज्ञापन स्थान 1"
-              size="large"
-              subtext="" /> */}
             <div className=" p-1 m-1 mt-3 ">
               <a href={`https://prarang.in/yp/meerut`} target="_blank">
                 <img src="https://www.prarang.in/assets/images/yellowpages.jpg" alt="Login" className="h-[420px] w-full" />

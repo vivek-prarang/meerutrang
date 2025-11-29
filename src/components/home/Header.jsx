@@ -21,19 +21,23 @@ export default function Header() {
   }, []);
 
 
-  useEffect(async () => {
-    try {
-      const { data, error } = await api.get("/daily-posts/list", { client: "prarang", params: { language: 'hi', location: 'c2', per_page: 10 } });
-      if (data) {
-        const totalVisitors = data.data.viewership;
-        setVisitorship(totalVisitors);
-        console.log("Total Visitors:", totalVisitors);
-      } else if (error) {
+  useEffect(() => {
+    const fetchVisitorData = async () => {
+      try {
+        const { data, error } = await api.get("/daily-posts/list", { client: "prarang", params: { language: 'hi', location: 'c2', per_page: 10 } });
+        if (data) {
+          const totalVisitors = data.data.viewership;
+          setVisitorship(totalVisitors);
+          console.log("Total Visitors:", totalVisitors);
+        } else if (error) {
+          console.error("Error fetching posts:", error);
+        }
+      } catch (error) {
         console.error("Error fetching posts:", error);
       }
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
+    };
+
+    fetchVisitorData();
   }, []);
 
 
