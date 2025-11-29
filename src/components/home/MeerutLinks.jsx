@@ -34,7 +34,7 @@ export default function MeerutLinks({ data }) {
       { "name": "मेरठ STD / PIN कोड", "url": "https://meerut.nic.in/std-pin-codes/" },
       { "name": "मेरठ बैंक IFSC कोड", "url": "https://www.infoqik.com/banks/uttar-pradesh/meerut" }
     ],
-    "ब्लॉग / क्रिएटिव स्टूडियो": [
+    "ब्लॉग": [
       { "name": "स्टूडियो धर्मा – फेसबुक", "url": "https://www.facebook.com/studiodharma.in" }
     ],
     "रोज़गार / नौकरियाँ": [
