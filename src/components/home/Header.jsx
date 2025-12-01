@@ -78,7 +78,7 @@ export default function Header() {
                 <td><AnimatedCounter number={3.2} label="लाख" size="small" color="" decimals={1} /> </td>
               </tr>
               <tr>
-                <td className="pr-2">दैनिक मेरठ पाठक:</td>
+                <td className="pr-2">आज के मेरठ पाठक:</td>
                 <td><AnimatedCounter number={visitorship} label="" size="small" color="" /></td>
               </tr>
 
