@@ -78,7 +78,7 @@ export default function Home() {
                 <TagLists />
               </div>
               <div className="bg-white p-1 pt-3 m-1 mt-3 rounded py-4 hover:shadow-lg transition-shadow cursor-pointer">
-                <a href={`https://g2c.prarang.in/ai/${portal?.slug}?lang=hi`} target="_blank">
+                <a href={`https://hindi.prarang.in/${portal?.slug}?data`} target="_blank">
                   <h3 className="text-xl font-bold text-center hover:text-blue-500"> मेरठ के आंकड़े </h3>
                 </a>
               </div>

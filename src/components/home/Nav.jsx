@@ -13,7 +13,7 @@ export default function Nav() {
           </a>
         </li>
         <li>
-          <a target="_blank" className="text-white hover:text-gray-200 font-semibold" href="https://hindi.prarang.in/meerut">
+          <a target="_blank" className="text-white hover:text-gray-200 font-semibold" href="https://hindi.prarang.in/meerut?data">
             District Metrics / जिला मेट्रिक्स
           </a>
         </li>

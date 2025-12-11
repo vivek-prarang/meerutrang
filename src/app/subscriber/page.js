@@ -604,7 +604,7 @@ export default function Home() {
               </div>
               <div className="bg-white p-1 pt-2 m-1 mt-3 ">
                 <h3 className="text-xl font-bold text-center">मेरठ आंकड़े</h3>
-                <a href={`https://g2c.prarang.in/ai/${portal?.slug}?lang=hi`} target="_blank">
+                <a href={`https://g2c.prarang.in/${portal?.slug}?data`} target="_blank">
                   <img src="https://www.prarang.in/assets/portal/images/matrix-24.jpg" alt="Login" className="w-full" />
                 </a>
               </div>
