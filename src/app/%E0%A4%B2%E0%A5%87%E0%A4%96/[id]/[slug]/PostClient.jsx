@@ -208,6 +208,10 @@ export default function PostDetailPage() {
                   __html: post.content || post.description || "",
                 }}
               />
+
+              <span className="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full font-semibold">
+                {post.tags || ""}
+              </span>
               {post.analytics.total_views > 0 && (
                 <div id="" className="definitions p-3 shadow-lg mt-10 rounded-lg bg-gray-50 ">
                   <h3 className="font-bold mb-2">Definitions of the Post Viewership Metrics</h3>

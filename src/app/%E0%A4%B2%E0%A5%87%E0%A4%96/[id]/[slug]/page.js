@@ -2,7 +2,7 @@ import PostClient from "./PostClient";
 import api from "../../../../lib/api"; // Adjust based on folder depth
 
 export async function generateMetadata({ params }) {
-  const  { id: postId, slug } = await params || {};
+  const { id: postId, slug } = await params || {};
 
   if (!postId) {
     console.error("❌ No postId found in params");
@@ -37,38 +37,38 @@ export async function generateMetadata({ params }) {
       .trim() || post.title;
     const url = `https://मेरठरंग.भारत/लेख/${postId}/${generatedSlug}`;
     return {
-    title,
-    description,
-    metadataBase: new URL("https://मेरठरंग.भारत"),
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
       title,
       description,
-      url,
-      siteName: "Meerut Rang",
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
-      locale: "hi_IN",
-      type: "article",
-      publishedTime: post.createDate,
-      authors: ["Prarang"],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [imageUrl],
-      creator: "@prarang_in",
-    },
-  };
+      metadataBase: new URL("https://मेरठरंग.भारत"),
+      alternates: {
+        canonical: url,
+      },
+      openGraph: {
+        title,
+        description,
+        url,
+        siteName: "Meerut Rang",
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: post.title,
+          },
+        ],
+        locale: "hi_IN",
+        type: "article",
+        publishedTime: post.createDate,
+        authors: ["Prarang"],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [imageUrl],
+        creator: "@prarang_in",
+      },
+    };
   } catch (err) {
     console.error("Metadata fetch error:", err);
     return {
