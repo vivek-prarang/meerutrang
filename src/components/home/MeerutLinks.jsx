@@ -67,24 +67,7 @@ export default function MeerutLinks({ data }) {
   return (
     <div className="p-2 m-1">
       {/* Background Illustrations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Blurred Flowers */}
-        <div className="absolute top-10 left-10 w-32 h-32 bg-pink-200 rounded-full blur-xl opacity-30 animate-pulse"></div>
-        <div className="absolute top-20 right-20 w-24 h-24 bg-blue-200 rounded-full blur-xl opacity-25 animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-20 w-28 h-28 bg-purple-200 rounded-full blur-xl opacity-20 animate-pulse delay-500"></div>
-        <div className="absolute bottom-10 right-10 w-20 h-20 bg-green-200 rounded-full blur-xl opacity-35 animate-pulse delay-1500"></div>
 
-        {/* Scratch/Cross Patterns */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-16 bg-gray-300 rotate-45 opacity-20"></div>
-        <div className="absolute top-1/4 left-1/4 w-16 h-2 bg-gray-300 rotate-45 opacity-20"></div>
-        <div className="absolute top-3/4 right-1/4 w-2 h-12 bg-gray-300 -rotate-45 opacity-15"></div>
-        <div className="absolute top-3/4 right-1/4 w-12 h-2 bg-gray-300 -rotate-45 opacity-15"></div>
-
-        {/* Decorative Circles */}
-        <div className="absolute top-1/2 left-1/6 w-4 h-4 bg-orange-300 rounded-full opacity-40"></div>
-        <div className="absolute top-1/3 right-1/6 w-6 h-6 bg-yellow-300 rounded-full opacity-30"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-red-300 rounded-full opacity-50"></div>
-      </div>
 
       {/* Main Content */}
       <div className="relative z-10">

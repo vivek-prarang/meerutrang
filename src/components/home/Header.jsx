@@ -61,10 +61,10 @@ export default function Header() {
       </div>
 
       {/* RIGHT – 3 Columns */}
-      <div className="col-span-12 md:col-span-3 flex justify-center md:justify-end">
+      <div className="col-span-12 md:col-span-3 flex flex-col justify-center md:justify-end">
 
 
-        <div className="p-3 bg-black border rounded text-white text-center w-full">
+        <div className="p-3 bg-black border rounded text-white text-center w-full ">
           <table className="table-auto mx-auto text-left">
             <tbody>
               <tr>
@@ -81,9 +81,14 @@ export default function Header() {
                 <td className="pr-2">आज के मेरठ पाठक:</td>
                 <td><AnimatedCounter number={visitorship} label="" size="small" color="" /></td>
               </tr>
-
             </tbody>
           </table>
+        </div>
+        <div className="mt-1 pb-1 text-center flex  gap-2">
+          <a target="_blank" href="https://b2b.prarang.in/login" className="btn btn-yellow w-full bg-amber-300 p-1 rounded-md shadow-md">Partner Login</a>
+          <a target="_blank" href="https://g2c.prarang.in/login" className="btn btn-yellow w-full bg-amber-300 p-1 rounded-md shadow-md">Government Login</a>
+
+
         </div>
       </div>
 
