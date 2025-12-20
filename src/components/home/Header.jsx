@@ -85,10 +85,8 @@ export default function Header() {
           </table>
         </div>
         <div className="mt-1 pb-1 text-center flex  gap-2">
-          <a target="_blank" href="https://b2b.prarang.in/login" className="btn btn-yellow w-full bg-amber-300 p-1 rounded-md shadow-md">Partner Login</a>
-          <a target="_blank" href="https://g2c.prarang.in/login" className="btn btn-yellow w-full bg-amber-300 p-1 rounded-md shadow-md">Government Login</a>
-
-
+          <a target="_blank" href="https://b2b.prarang.in/login?lt=partner" className="btn btn-yellow w-full bg-amber-300 p-1 rounded-sm shadow-md">Bussiness Login</a>
+          <a target="_blank" href="https://b2b.prarang.in/login?lt=g2c" className="btn btn-yellow w-full bg-amber-300 p-1 rounded-sm shadow-md">Govt. & NGO Login</a>
         </div>
       </div>
 
