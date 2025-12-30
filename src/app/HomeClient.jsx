@@ -122,7 +122,7 @@ export default function Home() {
                               </a>
 
                               <a
-                                href="https://hindi.prarang.in/world/market-planner?city=667" target="_blank"
+                                href="https://hindi.prarang.in/world/market-planner?country=63" target="_blank"
                                 className="block p-4 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all duration-300 group/link border border-white/30 hover:border-white/50"
                               >
                                 <div className="flex items-center justify-between">
@@ -169,7 +169,7 @@ export default function Home() {
                               </a>
 
                               <a
-                                href="https://hindi.prarang.in/world/development-planner?city=667" target="_blank"
+                                href="https://hindi.prarang.in/world/development-planner?country=63" target="_blank"
                                 className="block p-4 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all duration-300 group/link border border-white/30 hover:border-white/50"
                               >
                                 <div className="flex items-center justify-between">
