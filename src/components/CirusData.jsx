@@ -94,16 +94,12 @@ export default function CirusData() {
           <i className="fas fa-shield-alt text-red-600"></i> मेरठ में साइबर सुरक्षा
         </h3>
         <div className="space-y-2 text-sm">
-
-
           <div className="flex justify-between">
             <span className="text-gray-700">साइबर जोखिम सूचकांक:</span>
             <span className="font-bold text-red-900">{cirusData.risk_index}</span>
           </div>
         </div>
       </div>
-
-
       {/* Footer Note */}
       {/* <div className="mt-6 text-xs text-gray-500 text-center">
         <p>अंतिम अपडेट: {new Date().toLocaleDateString('hi-IN')}</p>

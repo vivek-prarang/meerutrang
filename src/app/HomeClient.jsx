@@ -36,7 +36,6 @@ export default function Home() {
     fetchPortal();
   }, []);
 
-
   const mapHtml = portal?.map_link ?? "<p>मानचित्र उपलब्ध नहीं है।</p>";
   return (
     <main className="min-h-screen w-full bg-cover bg-no-repeat bg-center home-bg" style={{ backgroundImage: `url(${portal?.image_base + portal?.header_image})` }}>
