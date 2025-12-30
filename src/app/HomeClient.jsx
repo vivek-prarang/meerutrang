@@ -109,7 +109,7 @@ export default function Home() {
 
                             <div className="space-y-4 mb-6">
                               <a
-                                href="https://hindi.prarang.in/india/market-planner/states?city=667" target="_blank"
+                                href="https://hindi.prarang.in/india/market-planner/states?city=-667" target="_blank"
                                 className="block p-4 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all duration-300 group/link border border-white/30 hover:border-white/50"
                               >
                                 <div className="flex items-center justify-between">
@@ -156,7 +156,7 @@ export default function Home() {
 
                             <div className="space-y-4 mb-6">
                               <a
-                                href="https://hindi.prarang.in/india/development-planners?city=667" target="_blank"
+                                href="https://hindi.prarang.in/india/development-planners?city=-667" target="_blank"
                                 className="block p-4 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all duration-300 group/link border border-white/30 hover:border-white/50"
                               >
                                 <div className="flex items-center justify-between">
