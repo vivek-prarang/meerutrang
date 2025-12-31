@@ -396,3 +396,8 @@ footer{
  text-decoration:none !important;
 }
 
+/* Figcaption */
+.prose-img\:w-full figure figcaption{
+ text-align:center !important;
+}
+
