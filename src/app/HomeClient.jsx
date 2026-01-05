@@ -69,9 +69,23 @@ export default function Home() {
 
             <Subscriber />
             <div className="">
-              <div className="mb-2 p-3 py-5 flex justify-center items-center w-full" style={{ backgroundColor: "rgba(0,0,0,0.63)" }}>
-                <h2 className="text-3xl font-bold text-center text-white">{portal?.city_slogan}</h2>
+
+              <div className="mb-2 w-full mt-2">
+                <div className="relative w-full overflow-hidden">
+                  {/* Image */}
+                  <img
+                    src={`${portal?.image_base}${portal?.header_image}`}
+                    alt={portal?.slug || "header image"}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+
+                  {/* Slug overlay at bottom */}
+                  <div className="absolute bottom-0 font-bold w-full bg-black/60 text-white text-center py-2 text-sm tracking-wide rounded-lg">
+                    {portal?.city_slogan}
+                  </div>
+                </div>
               </div>
+
               <div className="bg-white  m-1 shadow p-4">
                 <Carousel />
                 <TagLists />
