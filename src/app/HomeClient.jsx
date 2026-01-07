@@ -7,6 +7,7 @@ import TagLists from "@/components/home/TagLists";
 import { useState, useEffect, useRef } from "react";
 import api from "@/lib/api";
 import Nav from "@/components/home/Nav";
+import AiPages from "@/components/home/AiPages";
 import WeatherWidget from "@/components/home/WeatherWidget";
 import Subscriber from "@/components/home/Subscriber";
 import NewsFeed from "@/components/home/NewsFeed";
@@ -46,13 +47,12 @@ export default function Home() {
           <div className="w-full lg:w-3/12 bg-white/10 rounded-md order-2 lg:order-1">
             <Nav />
 
-            <div className="bg-white  rounded p-3 mb-3">
+            <div className="bg-white   p-3 mb-3">
               <div className="py-1 mb-2 text-xl font-bold border-b-1"><i className="fas fa-newspaper"></i> मेरठ के समाचार</div>
               <NewsFeed />
             </div>
-            <div className="bg-white  rounded p-3 ">
-              <div className="py-1 mb-2 text-xl font-bold border-b-1  "><i className="fas fa-location"></i> स्थानीय जानकारी</div>
-              <div className="" dangerouslySetInnerHTML={{ __html: portal?.local_matrics }} />
+            <div className="bg-white   p-3 ">
+              <AiPages />
             </div>
 
             {/* Meerut Links */}
@@ -90,9 +90,12 @@ export default function Home() {
                 <Carousel />
                 <TagLists />
               </div>
-              <div className="bg-white p-1 pt-3 m-1 mt-3 rounded py-4 hover:shadow-lg transition-shadow cursor-pointer">
-                <a href={`https://hindi.prarang.in/${portal?.slug}?data`} target="_blank">
-                  <h3 className="text-xl font-bold text-center hover:text-blue-500"> मेरठ के आंकड़े </h3>
+              <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 p-1 pt-3 rounded cursor-pointer">
+                <a className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white rounded-md py-3" href={`https://hindi.prarang.in/${portal?.slug}?data`} target="_blank">
+                  <h3 className="text-xl font-bold text-center"> मेरठ के आंकड़े </h3>
+                </a>
+                <a className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white rounded-md py-3" href={`https://hindi.prarang.in/ai/${portal?.slug}`} target="_blank">
+                  <h3 className="text-xl font-bold text-center"> मेरठ ए.आई. रिपोर्ट </h3>
                 </a>
               </div>
               <div className="w-full px-1 mt-3">
@@ -221,9 +224,13 @@ export default function Home() {
               <i className="fas fa-map mr-2"></i> शहर का नक्शा
             </button>
 
-            <div className=" p-1 m-1 mt-3 ">
-              <a href={`https://prarang.in/yp/meerut`} target="_blank">
-                <img src="https://www.prarang.in/assets/images/yellowpages.jpg" alt="Login" className="h-[420px] w-full" />
+            <div className=" p-1 m-1 mt-3  ">
+              <a href={`https://prarang.in/yp/meerut`} target="_blank" className="relative block">
+                <div className="absolute top-[20px] w-full text-center z-10">
+                  <h2 className="text-[40px]  font-bold text-black">{portal?.city_name_local}  व्यवसाय</h2>
+                  <h4 className="text-sm font-bold text-gray-700">हिंदी येलो पेज (Yellow Pages)</h4>
+                </div>
+                <img src="/images/yellow-pages-row.png" alt="Login" className=" w-full shadow-lg border  border-gray-200 hover:border-gray-400 hover:rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-gray-400" />
               </a>
             </div>
           </div>
