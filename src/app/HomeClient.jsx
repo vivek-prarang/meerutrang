@@ -80,9 +80,9 @@ export default function Home() {
                   />
 
                   {/* Slug overlay at bottom */}
-                  <div className="absolute bottom-0 font-bold w-full bg-black/60 text-white text-center py-2 text-sm tracking-wide rounded-lg">
+                  {/* <div className="absolute bottom-0 font-bold w-full bg-black/60 text-white text-center py-2 text-sm tracking-wide rounded-lg">
                     {portal?.city_slogan}
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
