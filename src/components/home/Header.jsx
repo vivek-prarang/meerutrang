@@ -5,6 +5,7 @@ import Modal from "../ui/Modal";
 import VisitorCounter from "../VisitorCounter";
 import AnimatedCounter from "../AnimatedCounter";
 import api from "@/lib/api";
+import Subscriber from "./Subscriber";
 
 export default function Header() {
   const [visitorship, setVisitorship] = useState(1500);
@@ -55,9 +56,10 @@ export default function Header() {
       </div>
       {/* MIDDLE – 6 Columns */}
       <div className="col-span-12 md:col-span-6 flex justify-center items-center h-full">
-        <div className="mb-2 p-3 py-5 w-full bg-[blue] rounded  mx-4">
-          <h2 className="text-2xl text-[yellow] font-bold text-center"> <sup> <small>प्रारंग के</small></sup>  मेरठ रंग: मेरठवासियों की अपनी वेबसाइट  </h2>
-        </div>
+        {/* <div className="mb-2 p-3 py-5 w-full bg-[blue] rounded  mx-4"> */}
+        {/* <h2 className="text-2xl text-[yellow] font-bold text-center"> <sup> <small>प्रारंग के</small></sup>  मेरठ रंग: मेरठवासियों की अपनी वेबसाइट  </h2> */}
+        <Subscriber />
+        {/* </div> */}
       </div>
 
       {/* RIGHT – 3 Columns */}
@@ -91,6 +93,6 @@ export default function Header() {
       </div>
 
 
-    </header>
+    </header >
   );
 }

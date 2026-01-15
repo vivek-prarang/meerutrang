@@ -67,7 +67,7 @@ export default function Home() {
           {/* Middle Section */}
           <div className="w-full lg:w-6/12 order-1 lg:order-2">
 
-            <Subscriber />
+
             <div className="">
 
               <div className="mb-2 w-full mt-2">
