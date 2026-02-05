@@ -164,39 +164,28 @@ export default function TagLists() {
                     onClick={() => handleSubCategoryClick(category.id, category.name)}
                     className="w-full group bg-white border-2 border-gray-200 rounded-xl p-1 hover:border-blue-400 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 text-left focus:outline-none focus:ring-2 focus:ring-blue-300"
                   >
+
                     <div className="flex items-center justify-between gap-4">
                       {/* Left Side - Icon */}
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-300">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-300">
                         {/* Different icons for each category */}
-                        {index === 0 && (
-                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                          </svg>
+                        {category.id == 1 && (
+                          <img src="https://www.prarang.in/assets/images/icons/culture/samay-sima.png" alt="" />
                         )}
-                        {index === 1 && (
-                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
-                          </svg>
+                        {category.id == 2 && (
+                          <img src="https://www.prarang.in/assets/images/icons/culture/manav-wa-indirya.png" alt="" />
                         )}
-                        {index === 2 && (
-                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
-                          </svg>
+                        {category.id == 3 && (
+                          <img src="https://www.prarang.in/assets/images/icons/culture/manav-wa-awishkar.png" alt="" />
                         )}
-                        {index === 3 && (
-                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                          </svg>
+                        {category.id == 4 && (
+                          <img src="https://www.prarang.in/assets/images/icons/nature/vanaspati.png" alt="" />
                         )}
-                        {index === 4 && (
-                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
-                          </svg>
+                        {category.id == 5 && (
+                          <img src="https://www.prarang.in/assets/images/icons/nature/jiw-jantu.png" alt="" />
                         )}
-                        {index === 5 && (
-                          <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clipRule="evenodd" />
-                          </svg>
+                        {category.id == 6 && (
+                          <img src="https://www.prarang.in/assets/images/icons/nature/bhugol.png" alt="" />
                         )}
                       </div>
 
@@ -265,27 +254,32 @@ export default function TagLists() {
 
               {/* Sub Categories for this Main Category */}
               {relatedSubCats.map((subCat, index) => (
+
                 <button
                   key={subCat.id}
                   onClick={() => handleSubCategoryClick(subCat.id, subCat.name)}
                   className="w-full group bg-white border-2 border-gray-200 rounded-xl p-4 hover:border-blue-400 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 text-left focus:outline-none focus:ring-2 focus:ring-blue-300"
                 >
+
                   <div className="flex items-center justify-between gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-300">
-                      {index === 0 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                        </svg>
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-300">
+                      {subCat.id == 1 && (
+                        <img src="https://www.prarang.in/assets/images/icons/culture/samay-sima.png" alt="" />
                       )}
-                      {index === 1 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
-                        </svg>
+                      {subCat.id == 2 && (
+                        <img src="https://www.prarang.in/assets/images/icons/culture/manav-wa-indirya.png" alt="" />
                       )}
-                      {index === 2 && (
-                        <svg className="w-7 h-7 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
-                        </svg>
+                      {subCat.id == 3 && (
+                        <img src="https://www.prarang.in/assets/images/icons/culture/manav-wa-awishkar.png" alt="" />
+                      )}
+                      {subCat.id == 4 && (
+                        <img src="https://www.prarang.in/assets/images/icons/nature/vanaspati.png" alt="" />
+                      )}
+                      {subCat.id == 5 && (
+                        <img src="https://www.prarang.in/assets/images/icons/nature/jiw-jantu.png" alt="" />
+                      )}
+                      {subCat.id == 6 && (
+                        <img src="https://www.prarang.in/assets/images/icons/nature/bhugol.png" alt="" />
                       )}
                     </div>
                     <div className="flex-1">

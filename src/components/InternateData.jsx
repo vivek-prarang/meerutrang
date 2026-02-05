@@ -130,7 +130,7 @@ export default function InternateData() {
                 case 18:
                   categoryLabel = 'ट्विटर उपयोगकर्ता';
                   categoryColor = 'bg-sky-50 border-sky-200';
-                  icon = 'fab fa-x-twitter';
+                  icon = 'fab fa-twitter';
                   iconColor = 'text-dark';
                   break;
                 default:
