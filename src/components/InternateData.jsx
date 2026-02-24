@@ -166,6 +166,15 @@ export default function InternateData() {
           <span className="text-sm font-bold text-gray-900">{Number(348900).toLocaleString('en-IN') || '-'}</span>
         </div>
       </div>
+
+      <div class="mt-4 pt-4 bg-red-50/30 border-t border-b border-red-900 p-4  shadow-inner flex justify-center items-center">
+        <a
+          className="flex items-center justify-center font-bold text-blue-800 border-2 font-bold border-blue-800 p-3 rounded-full w-full mx-4 hover:bg-blue-50  transition-all"
+          href="https://g2c.prarang.in/india/multilingualism/667" target="_blank">
+
+          <span class="arabic-numbers">मेरठ</span> &nbsp; की भाषा</a>
+
+      </div>
     </div >
   );
 }
