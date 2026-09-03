@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   trailingSlash: false, // ADD THIS LINE - prevents trailing slash redirects
   skipTrailingSlashRedirect: true, // ADD THIS LINE - completely disable trailing slash redirects
   async headers() {

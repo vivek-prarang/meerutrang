@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Meerut Range
 
-## Getting Started
-
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The development server is available at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Docker deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The production image uses Next.js standalone output and runs as the unprivileged
+`nextjs` user. Visitor data is stored in SQLite at `data/visitors.db`; Docker
+Compose mounts that directory so replacing the container does not delete
+analytics data.
 
-## Learn More
+### Build and run locally
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+copy .env.example .env
+docker compose up -d --build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open `http://localhost:3000`. Check the service with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+docker compose ps
+docker compose logs -f web
+```
 
-## Deploy on Vercel
+### Deploy on EC2
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Use an Ubuntu EC2 instance with Docker Engine and the Compose plugin installed.
+Allow inbound TCP `80` and `443` in the security group. Port `3000` is only
+needed temporarily for direct testing and should not be publicly exposed when
+using a reverse proxy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+git clone <repository-url> meerut-range
+cd meerut-range
+cp .env.example .env
+nano .env
+mkdir -p data
+docker compose up -d --build
+docker compose ps
+```
+
+Set the real API values in `.env` before starting the service. To update an
+existing deployment:
+
+```bash
+git pull
+docker compose up -d --build
+docker image prune -f
+```
+
+The service listens on port `3000` inside Docker. Set `APP_PORT` in `.env` to
+change the host port. For a public site, put Nginx or Caddy in front of the
+container for HTTPS and proxy requests to `127.0.0.1:3000`.
+
+### SQLite backup
+
+Back up the `data` directory from the EC2 host. Stop the service first so the
+SQLite database and its WAL files remain consistent:
+
+```bash
+docker compose stop web
+tar -czf meerut-range-data-$(date +%F).tar.gz data
+docker compose start web
+```
+
+The application is designed for a single running instance because visitor
+analytics use a local SQLite database. Use a shared database before scaling to
+multiple containers or EC2 instances.
